@@ -19,6 +19,6 @@ secrets.json
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts
-pyvenv.cfg
+pyvenv.cfggi
 .venv
 pip-selfcheck.json
