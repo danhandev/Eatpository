@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # CORS
-    'corsheaders'
+    'corsheaders',
     
     # DRF
     'rest_framework',
@@ -178,7 +178,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< Updated upstream
-=======
 AUTH_USER_MODEL = "accounts.Users"
->>>>>>> Stashed changes
+
