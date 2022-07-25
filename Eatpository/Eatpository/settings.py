@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+from datetime import datetime
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # CORS
-    'corsheaders'
+    'corsheaders',
     
     # DRF
     'rest_framework',
@@ -74,6 +75,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+JWT_SECRET_KEY =  get_secret("SECRET_KEY")
+JWT_ALGORITHM =  'HS256'
+
 
 MIDDLEWARE = [
     # CORS 세팅
@@ -178,7 +183,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< Updated upstream
-=======
+
 AUTH_USER_MODEL = "accounts.Users"
->>>>>>> Stashed changes
+
