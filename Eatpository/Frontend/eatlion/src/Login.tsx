@@ -1,18 +1,18 @@
 import React, { ChangeEvent, useEffect,useState } from "react";
-import axios from 'axios';
+//import {Link,useNavigate}from "react-router-dom";
 import LogInAPI from "./API/LogInAPI";
 
 
-
-
-export default function Login() {
+function Login(token:any,setToken:any) {
 
     const [userid,setUserid]=useState('');
     const[password,setPassword]=useState('');
     const [idValid,setIdValid]=useState(false);
     const [pwValid,setPwValid]=useState(false);
     const [notAllow, setNotAllow] = useState(true);
-    const [token,setToken]=useState('');
+    //const navigate=useNavigate();
+
+
     useEffect(() => {
         if(idValid && pwValid) {
           setNotAllow(false);
@@ -103,3 +103,4 @@ export default function Login() {
         );
         
 }
+export default Login;

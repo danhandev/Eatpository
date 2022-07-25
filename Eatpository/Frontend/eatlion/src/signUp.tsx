@@ -7,7 +7,7 @@ function SignUpPage(setToken:any){
   const [password, setPassword] = useState('');
   const [userphone,setUserPhone]=useState('');
   const [passwordToConfirm, setPasswordToConfirm] = useState('');
-  const isValidPhone =  userphone.length==11;
+  const isValidPhone =  userphone.length===11;
   const isValidPassword  = password.length  >= 8;
   // 회원가입 버튼 클릭
   const signUp = () => {
@@ -28,7 +28,7 @@ function SignUpPage(setToken:any){
     }
     
     else if (userphone === ''){
-      alert('이메일은 필수항목입니다.');
+      alert('전화번호는 필수항목입니다.');
     }
     else if (!isValidPhone) {
       alert('전화번호 11글자를 정확히 작성해주세요.');
@@ -37,7 +37,7 @@ function SignUpPage(setToken:any){
       alert('비밀번호는 8글자 이상으로 설정하십시오.');
     }
     else {
-      signUpAPI(userid,userphone,  password )
+      signUpAPI(userid,userphone, password )
       .then((response) => {
         if (response !== '') {
           setToken(response);
