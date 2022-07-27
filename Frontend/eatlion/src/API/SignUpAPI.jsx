@@ -11,7 +11,7 @@ const SignUpAPI = async (userid, password,userphone) => {
   }
   )
   .then((response) => {
-    token = response.data.Token;
+    token = response.data.access_token;
   })
   .catch(function (error) {
     console.log(error);
