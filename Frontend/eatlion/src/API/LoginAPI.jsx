@@ -8,7 +8,7 @@ const LogInAPI = async (userid, password) => {
     .post("http://localhost:8000/users/login/", {
       user_id: userid,
       password: password,
-    })
+    },{withCredentials:true,})
     .then((response) => {
       token = response.data.Token;
     })

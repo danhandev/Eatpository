@@ -30,17 +30,19 @@ function SignUpPage(setToken) {
     } else {
       SignUpAPI(userid, userphone, password).then((response) => {
         if (response !== "") {
-          console.log(response)
-          setToken(response);
           alert("회원가입 성공!!!");
-
+          console.log(response)
           setUserid("");
           setPassword("");
           setPasswordToConfirm("");
           setUserPhone("");
+          setToken(response);
+         
+
+          
           
         } else {
-          console.log(response)
+         
           alert(
             "회원가입 실패!!! - 원인으로는 서버 문제 or 아이디 중복 등의 원인이 있을 수 있습니다."
           );

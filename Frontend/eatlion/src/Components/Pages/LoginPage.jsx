@@ -1,14 +1,14 @@
 import React, {  useEffect,useState } from "react";
 //import {Link,useNavigate}from "react-router-dom";
-import LogInAPI from "./API/LogInAPI";
+import LogInAPI from "../../API/LoginAPI";
 
 
-function Login(token,setToken) {
+function LoginPage(token,setToken) {
 
     const [userid,setUserid]=useState('');
     const[password,setPassword]=useState('');
-    const [idValid,setIdValid]=useState(false);
-    const [pwValid,setPwValid]=useState(false);
+    const [idValid,setIdValid]=useState(true);
+    const [pwValid,setPwValid]=useState(true);
     const [notAllow, setNotAllow] = useState(true);
     //const navigate=useNavigate();
 
@@ -25,31 +25,21 @@ function Login(token,setToken) {
 
     const handleID=(e)=>{
         setUserid(e.currentTarget.value);
-        const regex=
-        /^[a-z]+[a-z0-9]{5,19}$/g;//아이디 정규표현식
-        if(regex.test(userid)){
-            setIdValid(true);
-        }else{
-            setIdValid(false);
-        }
+        
     };
     const handlePw=(e)=>{
         setPassword(e.currentTarget.value);
-        const regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
-        if(regExp.test(password)){
-            setPwValid(true);
-        }else{
-            setPwValid(false);
-        }
+      
     };
 
     const onClickConfirmButton = () => { 
         LogInAPI(userid,password).then(
             (response)=>{
                 if(response!==''){
-                    setToken(response);
+                    alert("로그인 성공");
                     setUserid('');
                     setPassword('');
+                    setToken(response);
                 }
                 else{
                     alert('로그인 실패');
@@ -103,4 +93,4 @@ function Login(token,setToken) {
         );
         
 }
-export default Login;
+export default LoginPage;

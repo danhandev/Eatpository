@@ -45,27 +45,40 @@ def signup(request):
 def home(request):
     return render(request, 'index.html')
 
+@api_view(['POST'])
 def user_login(request):
-    if request.method == "GET":
-        return render(request, "login.html")
+    # authenticate 사용해서 auth의 User 인증
+    user = authenticate(username=request.data['user_id'], password=request.data['password'])
+    if user is None:
+        return Response(status=status.HTTP_401_UNAUTHORIZED) # 권한 없음
+    try:
+        # user를 통해 token get
+        token = Token.objects.get(user=user)
+    except:
+        # [FIX]: token이 없는 경우 (token 생성 이후 기간이 지나 token이 만료되어 사라진 경우) token 재생성
+        token = Token.objects.create(user=user)
+    return Response({"Token": token.key})
+# def user_login(request):
+#     if request.method == "GET":
+#         return render(request, "login.html")
     
-    if request.method == "POST": 
+#     if request.method == "POST": 
 
-        username = request.POST.get('user_id')
-        password = request.POST.get('password')
+#         username = request.POST.get('user_id')
+#         password = request.POST.get('password')
 
-        if Users.objects.filter(username = username).exists():
-            user = Users.objects.get(username =username)
-            if user.password == password:
+#         if Users.objects.filter(username = username).exists():
+#             user = Users.objects.get(username =username)
+#             if user.password == password:
 
-                login(request,user)
-                payload = {"username" : username}
-                access_token = jwt.encode(payload, JWT_SECRET_KEY , algorithm = JWT_ALGORITHM).decode("utf-8")
-                return JsonResponse({"message" : "LOGIN SUCCESS" , "JWT" : access_token},status = 201)
-            else :
-                return JsonResponse({"message" : "비밀번호 불일치"}, status = 404)       
-        else :
-            return JsonResponse({"message" : "회원 정보 없음"}, status = 404)  
+#                 login(request,user)
+#                 payload = {"username" : username}
+#                 access_token = jwt.encode(payload, JWT_SECRET_KEY , algorithm = JWT_ALGORITHM).decode("utf-8")
+#                 return JsonResponse({"message" : "LOGIN SUCCESS" , "JWT" : access_token},status = 201)
+#             else :
+#                 return JsonResponse({"message" : "비밀번호 불일치"}, status = 404)       
+#         else :
+#             return JsonResponse({"message" : "회원 정보 없음"}, status = 404)  
             
 
                 ##return redirect('home')
