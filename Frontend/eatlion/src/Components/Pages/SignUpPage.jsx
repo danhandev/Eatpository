@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import signUpAPI from "./API/signUpAPI";
-import {useEffect,ChangeEvent} from "react";
-function SignUpPage(setToken:any){
+
+function SignUpPage(setToken){
 
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
@@ -55,18 +55,18 @@ function SignUpPage(setToken:any){
     }
   }
 
-  const useridHandler = (event:ChangeEvent<HTMLInputElement>)=>{
-    setUserid(event.currentTarget.value);
+  const useridHandler = (e)=>{
+    setUserid(e.currentTarget.value);
   };
-  const passwordHandler = (event:ChangeEvent<HTMLInputElement>)=>{
-    setPassword(event.currentTarget.value);
+  const passwordHandler = (e)=>{
+    setPassword(e.currentTarget.value);
   };
 
-  const PhoneHandler = (event:ChangeEvent<HTMLInputElement>) => {
-    setUserPhone(event.target.value);
+  const PhoneHandler = (e) => {
+    setUserPhone(e.target.value);
   }
-  const passwordToConfirmHandler = (event:ChangeEvent<HTMLInputElement>) => {
-    setPasswordToConfirm(event.currentTarget.value);
+  const passwordToConfirmHandler = (e) => {
+    setPasswordToConfirm(e.currentTarget.value);
   };
 
     return(

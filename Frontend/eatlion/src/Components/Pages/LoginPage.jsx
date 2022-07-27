@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useEffect,useState } from "react";
+import React, {  useEffect,useState } from "react";
 //import {Link,useNavigate}from "react-router-dom";
 import LogInAPI from "./API/LogInAPI";
 
 
-function Login(token:any,setToken:any) {
+function Login(token,setToken) {
 
     const [userid,setUserid]=useState('');
     const[password,setPassword]=useState('');
@@ -23,8 +23,8 @@ function Login(token:any,setToken:any) {
 
 
 
-    const handleID=(event:ChangeEvent<HTMLInputElement>)=>{
-        setUserid(event.currentTarget.value);
+    const handleID=(e)=>{
+        setUserid(e.currentTarget.value);
         const regex=
         /^[a-z]+[a-z0-9]{5,19}$/g;//아이디 정규표현식
         if(regex.test(userid)){
@@ -33,8 +33,8 @@ function Login(token:any,setToken:any) {
             setIdValid(false);
         }
     };
-    const handlePw=(event:ChangeEvent<HTMLInputElement>)=>{
-        setPassword(event.currentTarget.value);
+    const handlePw=(e)=>{
+        setPassword(e.currentTarget.value);
         const regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
         if(regExp.test(password)){
             setPwValid(true);
