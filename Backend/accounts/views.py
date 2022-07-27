@@ -13,16 +13,22 @@ def signup(request):
         return render(request, 'signup.html')
 
     if request.method == "POST":
-        user_id = request.POST.get("user_id")
-        password = request.POST.get("password")
-        phone_number = request.POST.get("phone_number")
+        # user_id = request.POST.get("user_id")
+        # password = request.POST.get("password")
+        # phone_number = request.POST.get("phone_number")
+        data =  json.loads(request.body.decode('utf-8'))
+        username = data.get("user_id")
+        password = data.get("password")
+        phone_number = data.get("phone_number")
         user = Users.objects.create(
-            username= user_id, 
+            username= username, 
             password = password, 
             phone_number = phone_number,
             role = False)
         login(request,user)
-        return redirect('home')
+        payload = {"username" : username}
+        access_token = jwt.encode(payload, JWT_SECRET_KEY , algorithm = JWT_ALGORITHM).decode("utf-8")
+        return JsonResponse({"messages" : "LOGIN SUCCESS", "JWT" : access_token}, status = 201)
 
 def home(request):
     return render(request, 'index.html')

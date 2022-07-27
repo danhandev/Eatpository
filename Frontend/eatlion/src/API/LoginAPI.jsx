@@ -5,8 +5,8 @@ import axios from "axios";
 const LogInAPI = async (userid, password) => {
   let token = "";
   await axios
-    .post("https://postman-echo.com/POST", {
-      userid: userid,
+    .post("http://localhost:8000/users/login/", {
+      user_id: userid,
       password: password,
     })
     .then((response) => {
