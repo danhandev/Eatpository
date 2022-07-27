@@ -8,10 +8,11 @@ const SignUpAPI = async (userid, password,userphone) => {
     user_id: userid,
     password: password,
     phone_number:userphone,
-  }
+  },{withCredentials:true,}
   )
   .then((response) => {
-    token = response.data.access_token;
+    console.log(response);
+    token = response.data.Token;
   })
   .catch(function (error) {
     console.log(error);
