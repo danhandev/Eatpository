@@ -28,7 +28,7 @@ function SignUpPage(setToken) {
     } else if (!isValidPassword) {
       alert("비밀번호는 8글자 이상으로 설정하십시오.");
     } else {
-      SignUpAPI(userid, userphone, password).then((response) => {
+      SignUpAPI(userid, password, userphone).then((response) => {
         if (response !== "") {
           alert("회원가입 성공!!!");
           console.log(response)
