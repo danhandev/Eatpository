@@ -2,15 +2,20 @@ import axios from "axios";
 
 // userid, password 입력 받으면 token 값 return
 // error 시, token = '', 성공 시, token = 'Token 값'
-const signUpAPI = async (userid:any,userphone:any, password:any) => {
+const SignUpAPI = async (userid, password,userphone) => {
   let token = ''
-  await axios.post("http://localhost:8000/user/signup/", {
+  
+  await axios.post("http://localhost:8000/users/signup/", {
+    
     user_id: userid,
-    phone_number:userphone,
     password: password,
-  })
+    phone_number:userphone,
+  },{withCredentials:true,}
+  )
   .then((response) => {
+
     token = response.data.Token;
+   
   })
   .catch(function (error) {
     console.log(error);
@@ -18,4 +23,4 @@ const signUpAPI = async (userid:any,userphone:any, password:any) => {
   return token;
 }
 
-export default signUpAPI;
+export default SignUpAPI;
