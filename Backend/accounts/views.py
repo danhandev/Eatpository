@@ -7,19 +7,28 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from django.http  import JsonResponse
-
+import json
 from datetime import datetime, timedelta
 from Eatpository.settings import JWT_ALGORITHM,JWT_SECRET_KEY
 # Create your views here.
 
 @api_view(['POST'])
 def signup(request):
-    # auth의 User 저장
-    user = Users.objects.create_user(username=request.data['user_id'], password=request.data['password'],phone_number=request.data['phone_number'])
-    token = Token.objects.create(user=user) # Token Create
-    user.save() # auth의 User 저장
-    return Response({"Token": token.key}) # 이 Token 값은 FrontEnd에 저장해두고 인증/인가 시 사용함
 
+    if request.method == "POST":
+        data =  json.loads(request.body.decode('utf-8'))
+        username = data.get("user_id")
+        password = data.get("password")
+        phone_number = data.get("phone_number")
+        user = Users.objects.create(
+            username= username, 
+            password = password, 
+            phone_number = phone_number,
+            role = False)
+        user.save()
+        #login(request,user)
+        token = Token.objects.get_or_create(user=user)
+        return Response({"Token": token[0].key})
 # def signup(request):
 #     if request.method == "GET":
 #         return render(request, 'signup.html')
@@ -44,20 +53,35 @@ def signup(request):
 
 def home(request):
     return render(request, 'index.html')
-
+# @api_view(['POST'])
+# def user_login(request):
+#     # authenticate 사용해서 auth의 User 인증
+#     user = authenticate(username=request.data['user_id'], password=request.data['password'])
+#     if user is None:
+#         return Response(status=status.HTTP_401_UNAUTHORIZED) # 권한 없음
+#     try:
+#         # user를 통해 token get
+#         token = Token.objects.get(user=user)
+#     except:
+#         # [FIX]: token이 없는 경우 (token 생성 이후 기간이 지나 token이 만료되어 사라진 경우) token 재생성
+#         token = Token.objects.create(user=user)
+#     return Response({"Token": token.key})
 @api_view(['POST'])
 def user_login(request):
-    # authenticate 사용해서 auth의 User 인증
-    user = authenticate(username=request.data['user_id'], password=request.data['password'])
-    if user is None:
-        return Response(status=status.HTTP_401_UNAUTHORIZED) # 권한 없음
-    try:
-        # user를 통해 token get
-        token = Token.objects.get(user=user)
-    except:
-        # [FIX]: token이 없는 경우 (token 생성 이후 기간이 지나 token이 만료되어 사라진 경우) token 재생성
-        token = Token.objects.create(user=user)
-    return Response({"Token": token.key})
+    if request.method == "POST":
+        data =  json.loads(request.body.decode('utf-8'))
+        username = data.get("user_id")
+        password = data.get("password")
+        try : 
+            user = Users.objects.get(username =username)
+        except : 
+            return Response({"message": "error"})
+        if user.password == password:
+            login(request,user)
+            token = Token.objects.get_or_create(user=user)
+            return Response({"Token": token[0].key})
+        else :             
+            return Response({"message" : "not correct password"})
 # def user_login(request):
 #     if request.method == "GET":
 #         return render(request, "login.html")

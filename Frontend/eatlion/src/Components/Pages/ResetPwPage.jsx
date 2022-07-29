@@ -14,18 +14,7 @@ else if(password !== passwordToConfirm) {
 else{
     alert("자깐만요!");
 }
-    /*else {
-        const obj={
-            user_phone:userphone
-        }
-        const res=await axios('/users/login/user-id/{phone-number}',{
-            method:'POST',
-            data:obj,
-            headers:new Headers()
-        })
-      
-      }
-    }*/}
+}
     const passwordHandler = (e)=>{
         setPassword(e.currentTarget.value);
       };

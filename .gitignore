@@ -169,32 +169,48 @@ sketch
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts
-pyvenv.cfg
+
+pyvenv.cfggi
+.venv
 pip-selfcheck.json
 
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+# frontend git ignore
 
-# Local History for Visual Studio Code
-.history/
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
 
-# Built Visual Studio Code Extensions
-*.vsix
+node_modules
+bower_components
 
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
-.ionide
+*.sublime*
 
-# Support for Project snippet scope
-.vscode/*.code-snippets
+psd
+thumb
+sketch
 
-# Ignore code-workspaces
-*.code-workspace
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,django,venv,react
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+

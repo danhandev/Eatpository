@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
-import "./Css/index.css"
+import "./Css/index.css" 
+import App from './Components/Pages/App';
 
-//import "./Components/NavBar.css";
-//axios.defaults.baseURL = "https://www.abc.com";
 axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-  
+    <BrowserRouter>
+     <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

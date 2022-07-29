@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import SignUpAPI from "../../API/SignUpAPI";
-
-function SignUpPage(setToken) {
+import { Link,useNavigate } from 'react-router-dom';
+function SignUpPage({token,setToken}) {
+ // const [token,setToken]=useState('');
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [userphone, setUserPhone] = useState("");
   const [passwordToConfirm, setPasswordToConfirm] = useState("");
   const isValidPhone = userphone.length === 11;
   const isValidPassword = password.length >= 8;
+  const navigate=useNavigate();
   // 회원가입 버튼 클릭
   const signUp = () => {
     // signUpAPI 실행
@@ -37,6 +39,7 @@ function SignUpPage(setToken) {
           setPasswordToConfirm("");
           setUserPhone("");
           setToken(response);
+          navigate('/');
          
 
           
@@ -69,7 +72,7 @@ function SignUpPage(setToken) {
     <div className="page">
       <div className="joinMain fullsize">
         {" "}
-        <h1>멋사먹자 회원가입</h1>
+        <div className="titleWrap">멋사먹자 회원가입</div>
         <div className="subText">
           서비스 가입을 하면 멋사먹자의 이용약관, 개인정보취급방침 및 개인정보
           3자 제공에 동의하게 됩니다.
@@ -83,7 +86,7 @@ function SignUpPage(setToken) {
               <input
                 type="text"
                 className="input"
-                placeholder="xxx-xxxx-xxxx"
+                placeholder="전화번호 11자리를 입력해주세요"
                 value={userphone}
                 onChange={PhoneHandler}
               />{" "}
@@ -95,7 +98,7 @@ function SignUpPage(setToken) {
               <input
                 type="text"
                 className="input"
-                placeholder="id"
+                placeholder="아이디를 입력해주세요"
                 value={userid}
                 onChange={useridHandler}
               />{" "}
@@ -111,7 +114,7 @@ function SignUpPage(setToken) {
               <input
                 type="password"
                 className="input"
-                placeholder="password"
+                placeholder="패스워드를 입력해주세요"
                 value={password}
                 onChange={passwordHandler}
               />
@@ -127,7 +130,7 @@ function SignUpPage(setToken) {
               <input
                 type="password"
                 className="input"
-                placeholder="passwordvalidation"
+                placeholder="입력하신 비밀번호를 다시 입력해주세요"
                 value={passwordToConfirm}
                 onChange={passwordToConfirmHandler}
               />
