@@ -6,7 +6,7 @@ from django.contrib.auth.models import User, AbstractUser
 
 # 사용자
 class Users(AbstractUser):
-    phone_number = models.CharField(max_length=12, null = False)
+    phone_number = models.CharField(max_length=12, null = False, unique= True)
     role = models.BooleanField(null = True) # 역할
     nickname = models.CharField(max_length=30, null=True) # 닉네임
     user_num = models.IntegerField(blank=True,null=True) # 인덱스 순서
