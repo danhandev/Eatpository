@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./Components/Pages/LoginPage";
 import SignUpPage from "./Components/Pages/SignUpPage";
 import ResetPwPage from "./Components/Pages/App";
-import FindPwPage from "./Components/Pages/App";
+import FindPwPage from "./Components/Pages/FindPwPage";
 import FindIdPage from "./Components/Pages/FindIdPage";
 import App from "./Components/Pages/App";
 import MainPage from "./Components/Pages/MainPage";
