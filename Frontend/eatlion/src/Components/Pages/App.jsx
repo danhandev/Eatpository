@@ -1,8 +1,8 @@
 import React from 'react';
-import RenamePwPage from './Components/Pages/ResetPwPage';
+
 import { useState } from 'react';
-import SignUpPage from './Components/Pages/SignUpPage';
-import LoginPage from './Components/Pages/LoginPage';
+import SignUpPage from './SignUpPage';
+
 
 const App=()=> {
   const[token,setToken]=useState('');
