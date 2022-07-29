@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Users
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import login,logout
 from django.contrib import auth
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -115,3 +115,57 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+
+## 아이디 찾기!!
+@api_view(['GET'])
+def user_id(request):
+    if request.method == "GET" :
+        try:
+            phone_number = request.META.get("HTTP_PHONENUMBER")
+            user_id = Users.objects.get(phone_number = phone_number).username
+        except : 
+            return Response({"message":"error"})
+
+        if user_id is not None :
+            return Response({"user_id" :user_id})
+        else :
+            return Response({"message": "user does not exist"})
+
+### 비밀번호 찾기!!!!!!!!!!!!!!!!!!!!!!!!!!
+@api_view(['GET'])
+def user_password(request):
+    if request.method == "GET" :
+        try :
+            user_id = request.META.get("HTTP_USERID")
+            phone_number = request.META.get("HTTP_PHONENUMBER")
+            user = Users.objects.get(username = user_id)
+        except :
+            return Response({"message" : "user does not exist : except occurs"})
+        if user is not None:
+            if user.phone_number == phone_number :
+                return Response({"password" : user.password})
+            else :
+                return Response({"message" : "user does not exist : phone_num not correct"})
+        else : 
+            return Response({"message" : "user does not exist : user_id not correct"})
+
+
+######비밀번호 재설정!!!!
+@api_view(['PATCH'])
+def new_password(request):
+    if request.method == "PATCH" : 
+        data = json.loads(request.body.decode("utf-8"))
+        username = data.get("user_id")
+        password = data.get("password")
+        re_password = data.get("re_password")
+        try :
+            user = Users.objects.get(username = username)
+        except :
+            return Response({"message" : "user does not exist"})
+        if user.password == password :
+            user.password = re_password
+            user.save()
+            return Response({"message" : "password changed"})
+        else : 
+            return Response({"message" : "user does not exist"})
