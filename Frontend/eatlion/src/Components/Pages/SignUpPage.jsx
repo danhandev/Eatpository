@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import SignUpAPI from "../../API/SignUpAPI";
-
-function SignUpPage({setToken}) {
+import { Link,useNavigate } from 'react-router-dom';
+function SignUpPage() {
+  const [token,setToken]=useState('');
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [userphone, setUserPhone] = useState("");
   const [passwordToConfirm, setPasswordToConfirm] = useState("");
   const isValidPhone = userphone.length === 11;
   const isValidPassword = password.length >= 8;
+  const navigate=useNavigate();
   // 회원가입 버튼 클릭
   const signUp = () => {
     // signUpAPI 실행
@@ -37,6 +39,7 @@ function SignUpPage({setToken}) {
           setPasswordToConfirm("");
           setUserPhone("");
           setToken(response);
+          navigate('/login');
          
 
           

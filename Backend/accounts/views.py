@@ -53,22 +53,35 @@ def signup(request):
 
 def home(request):
     return render(request, 'index.html')
-
-@api_view(['GET'])
+# @api_view(['POST'])
+# def user_login(request):
+#     # authenticate 사용해서 auth의 User 인증
+#     user = authenticate(username=request.data['user_id'], password=request.data['password'])
+#     if user is None:
+#         return Response(status=status.HTTP_401_UNAUTHORIZED) # 권한 없음
+#     try:
+#         # user를 통해 token get
+#         token = Token.objects.get(user=user)
+#     except:
+#         # [FIX]: token이 없는 경우 (token 생성 이후 기간이 지나 token이 만료되어 사라진 경우) token 재생성
+#         token = Token.objects.create(user=user)
+#     return Response({"Token": token.key})
+@api_view(['POST'])
 def user_login(request):
-    if request.method == "GET":
-        user_id = request.META.get("HTTP_USER_ID")
-        password = request.META.get("HTTP_PASSWORD")
-        if Users.objects.filter(username = user_id).exists():
-            user = Users.objects.get(username =user_id)
-            if user.password == password:
-                #login(request,user)
-                token = Token.objects.get_or_create(user=user)
-                return Response({"Token": token[0].key})
-            else :
-                return Response({"message" : "not correct password"})       
-        else :
-            return Response({"messages" : "error"})
+    if request.method == "POST":
+        data =  json.loads(request.body.decode('utf-8'))
+        username = data.get("user_id")
+        password = data.get("password")
+        try : 
+            user = Users.objects.get(username =username)
+        except : 
+            return Response({"message": "error"})
+        if user.password == password:
+            login(request,user)
+            token = Token.objects.get_or_create(user=user)
+            return Response({"Token": token[0].key})
+        else :             
+            return Response({"message" : "not correct password"})
 # def user_login(request):
 #     if request.method == "GET":
 #         return render(request, "login.html")

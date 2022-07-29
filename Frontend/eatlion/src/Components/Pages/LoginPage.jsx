@@ -1,16 +1,16 @@
 import React, {  useEffect,useState } from "react";
-//import {Link,useNavigate}from "react-router-dom";
+import {Link,useNavigate}from "react-router-dom";
 import LogInAPI from "../../API/LoginAPI";
 
 
-function LoginPage({token,setToken}) {
-
+function LoginPage() {
+    const[token,setToken]=useState('');
     const [userid,setUserid]=useState('');
     const[password,setPassword]=useState('');
     const [idValid,setIdValid]=useState(true);
     const [pwValid,setPwValid]=useState(true);
     const [notAllow, setNotAllow] = useState(true);
-    //const navigate=useNavigate();
+    const navigate=useNavigate();
 
 
     useEffect(() => {
@@ -40,6 +40,7 @@ function LoginPage({token,setToken}) {
                     setUserid('');
                     setPassword('');
                     setToken(response);
+                    navigate('/findid');
                 }
                 else{
                     alert('로그인 실패');
