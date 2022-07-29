@@ -28,7 +28,7 @@ else{
                 <div className="titleWrap">
                    비밀번호 찾기
                 </div>
-                <div style={{fontSize:'16px',color:'#dadada'}}>전화번호와 아이디를 통해 비밀번호를 찾을 수 잇습니다</div>
+                <div className="subText">전화번호와 아이디를 통해 비밀번호를 찾을 수 잇습니다</div>
                 <div className="contentWrap">
                     <div className="inputTitle" >전화번호</div>
                     </div> 

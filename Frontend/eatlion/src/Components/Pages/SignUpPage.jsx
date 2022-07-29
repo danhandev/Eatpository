@@ -72,7 +72,7 @@ function SignUpPage({token,setToken}) {
     <div className="page">
       <div className="joinMain fullsize">
         {" "}
-        <h1>멋사먹자 회원가입</h1>
+        <div className="titleWrap">멋사먹자 회원가입</div>
         <div className="subText">
           서비스 가입을 하면 멋사먹자의 이용약관, 개인정보취급방침 및 개인정보
           3자 제공에 동의하게 됩니다.
