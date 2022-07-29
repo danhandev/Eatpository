@@ -49,6 +49,17 @@ function LoginPage(token,setToken) {
             }
         )
     };
+    const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+  if(token === ''){
+      console.log('로그인 후 사용가능합니다.');
+  }
+  else{
+      setIsLogin(true);
+      console.log('로그인 상태');
+  }
+    }, [token]);
+
  
  return (
         <div className="page">
