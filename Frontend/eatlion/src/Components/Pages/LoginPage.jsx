@@ -3,7 +3,7 @@ import React, {  useEffect,useState } from "react";
 import LogInAPI from "../../API/LoginAPI";
 
 
-function LoginPage(token,setToken) {
+function LoginPage({token,setToken}) {
 
     const [userid,setUserid]=useState('');
     const[password,setPassword]=useState('');

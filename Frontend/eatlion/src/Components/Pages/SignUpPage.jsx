@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignUpAPI from "../../API/SignUpAPI";
 
-function SignUpPage(setToken) {
+function SignUpPage({setToken}) {
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [userphone, setUserPhone] = useState("");
