@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LogInAPI from "../../API/LoginAPI";
 
 function LoginPage({token,setToken}) {
-  //const [token, setToken] = useState();
+  
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [idValid, setIdValid] = useState(true);
@@ -33,7 +33,7 @@ function LoginPage({token,setToken}) {
         setUserid("");
         setPassword("");
         setToken(response);
-        navigate("/findid");
+        navigate("/");
       } else {
         alert("로그인 실패");
         setUserid("");

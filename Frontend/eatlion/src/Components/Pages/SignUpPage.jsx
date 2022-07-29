@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignUpAPI from "../../API/SignUpAPI";
 import { Link,useNavigate } from 'react-router-dom';
-function SignUpPage({setToken}) {
+function SignUpPage({token,setToken}) {
  // const [token,setToken]=useState('');
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +39,7 @@ function SignUpPage({setToken}) {
           setPasswordToConfirm("");
           setUserPhone("");
           setToken(response);
-          navigate('/login');
+          navigate('/');
          
 
           

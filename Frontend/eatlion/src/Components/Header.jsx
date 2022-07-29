@@ -4,19 +4,20 @@ import "../Css/Header.css";
 import logo from "../Img/logo.png";
 
 // 앱 메인에서 Login 상태를 prop으로 받아와서 state에 따라 Logout버튼을 보여주거나 보여주지 않는다.
-const Header = () => {
-  const [token, setToken] = useState("");
+const Header = ({token,setToken}) => {
+  
   const [isLoggedIn, setLogged] = useState(false);
   useEffect(() => {
-    (token !== "") && (setLogged(true));
+   if(token===''){
+    setLogged(false);
+   }else if(token!==''){setLogged(true);}
   }, [token]);
-  console.log(JSON.stringify(token));
-  console.log(isLoggedIn);
+
   return (
     <div className="navSection">
       <nav className="nav">
         <div className="nav-logo">
-          <Link to="/main">
+          <Link to="/">
             <img src={logo} alt="" />
           </Link>
         </div>
