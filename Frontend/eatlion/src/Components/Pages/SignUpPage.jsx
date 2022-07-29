@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import SignUpAPI from "../../API/SignUpAPI";
 import { Link,useNavigate } from 'react-router-dom';
-function SignUpPage() {
-  const [token,setToken]=useState('');
+function SignUpPage({setToken}) {
+ // const [token,setToken]=useState('');
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [userphone, setUserPhone] = useState("");
@@ -86,7 +86,7 @@ function SignUpPage() {
               <input
                 type="text"
                 className="input"
-                placeholder="xxx-xxxx-xxxx"
+                placeholder="전화번호 11자리를 입력해주세요"
                 value={userphone}
                 onChange={PhoneHandler}
               />{" "}
@@ -98,7 +98,7 @@ function SignUpPage() {
               <input
                 type="text"
                 className="input"
-                placeholder="id"
+                placeholder="아이디를 입력해주세요"
                 value={userid}
                 onChange={useridHandler}
               />{" "}
@@ -114,7 +114,7 @@ function SignUpPage() {
               <input
                 type="password"
                 className="input"
-                placeholder="password"
+                placeholder="패스워드를 입력해주세요"
                 value={password}
                 onChange={passwordHandler}
               />
@@ -130,7 +130,7 @@ function SignUpPage() {
               <input
                 type="password"
                 className="input"
-                placeholder="passwordvalidation"
+                placeholder="입력하신 비밀번호를 다시 입력해주세요"
                 value={passwordToConfirm}
                 onChange={passwordToConfirmHandler}
               />

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect,useState } from "react";
 import axios from "axios";
-function RenamePwPage({setToken}){
+function RenamePwPage(setToken){
     const [password, setPassword] = useState('');
     const [passwordToConfirm, setPasswordToConfirm] = useState('');
     const isValidPassword  = password.length  >= 8;

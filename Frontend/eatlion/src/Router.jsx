@@ -7,7 +7,8 @@ import FindPwPage from "./Components/Pages/App";
 import FindIdPage from "./Components/Pages/FindIdPage";
 import App from "./Components/Pages/App";
 
-const Router = ({ token, setToken }) => {
+const Router = ({token,setToken}) => {
+   // const [token,setToken]=useState('');
   return (
       <Routes>
         <Route path="/" exact={true} element={<App />} />
