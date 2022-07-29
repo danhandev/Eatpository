@@ -1,14 +1,25 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FindIdAPI from "../../API/FindIdAPI";
 function FindIdPage(setToken) {
   const [userphone, setUserPhone] = useState("");
   const isValidPhone = userphone.length === 11;
+  const navigate = useNavigate();
   const FindId = () => {
     if (!isValidPhone) {
       alert("전화번호 11글자를 정확히 작성해주세요.");
     } else {
       FindIdAPI(userphone).then(
-
+        (response)=>{
+            if(response !== ''){
+                console.log(response);
+                alert(`아이디 찾기 성공, 아이디는 ${response}입니다.`);
+                navigate('/login');
+            }
+            else{
+                alert('아이디 찾기 실패');
+            }
+        }
       )  
     }
     /*else {
