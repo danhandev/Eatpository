@@ -13,7 +13,7 @@ function FindIdPage(setToken) {
         (response)=>{
             if(response !== ''){
                 console.log(response);
-                alert(`아이디 찾기 성공, 아이디는 ${response}입니다.`);
+                alert(`아이디 찾기 성공, 아이디는 ${response.data.user_id}입니다.`);
                 navigate('/login');
             }
             else{

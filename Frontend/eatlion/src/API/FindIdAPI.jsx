@@ -4,11 +4,10 @@ const FindIdAPI = async (userphone) => {
     let find_id ="";
     await axios
     .get("http://localhost:8000/users/user-id/",{
-        headers:{
-            Authorization: `Token ${userphone}`,
-            phonenumber : userphone
+       
+            phone_number:userphone,
         }
-    },{withCredentials:true,})
+    ,{withCredentials:true,})
     .then((response)=>{
         find_id = response.data.user_id;
     }) 
