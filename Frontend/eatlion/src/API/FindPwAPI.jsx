@@ -1,21 +1,22 @@
 import axios from "axios";
 
-const FindPwAPI = async (userphone,userid) => {
-    let result =false;
+const FindPwAPI = async (userid,userphone) => {
+    let findpw=''
     await axios
     .get("http://localhost:8000/users/password/",{
-       
-            phone_number:userphone,
-            user_id:userid,
-        }
+
+           params:{user_id:userid,phone_number:userphone}}
+            
+
+        
     ,{withCredentials:true,})
     .then((response)=>{
-        result=true;
-    }) 
+        findpw=response.data.password;
+    })
     .catch(function(error){
         console.error(error);
     });
-    return result;
+    return findpw
 };
 
 export default FindPwAPI;
