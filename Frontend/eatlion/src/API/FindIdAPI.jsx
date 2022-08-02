@@ -5,12 +5,14 @@ const FindIdAPI = async (userphone) => {
     await axios
     .get("http://localhost:8000/users/user-id/",
        
-            {params:{phone_number:userphone},
+            {headers:{
+        
+                userphone}
             
         }
     ,{withCredentials:true,})
     .then((response)=>{
-        findid = response.data.user_id;
+        findid = response.data.data;
     }) 
     .catch(function(error){
         console.error(error);

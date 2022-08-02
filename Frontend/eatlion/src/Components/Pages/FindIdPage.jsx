@@ -2,8 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FindIdAPI from "../../API/FindIdAPI";
 import axios from "axios";
-function FindIdPage({findid,setFindid}) {
- 
+function FindIdPage() {
+  const[findid,setFindid]=useState("");
   const [userphone, setUserPhone] = useState("");
   const isValidPhone = userphone.length === 11;
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function FindIdPage({findid,setFindid}) {
           
                 console.log(response);
                 
-                alert(`아이디 찾기 성공, 아이디는 ${response}입니다.`);
+                alert(`아이디 찾기 성공, 아이디는 ${setFindid}입니다.`);
                 navigate('/login');
             }
             else{
