@@ -5,55 +5,63 @@ import editor1 from "../../Img/editor1.png";
 import axios from "axios";
 
 function StartPage() {
-  let table = [false,false, false, false];
-  const [firstButton,setFirstbutton]=useState(table[0]);
-  const [secondButton,setSecondbutton]=useState(table[1]);
-  const [thirdButton,setThirdbutton]=useState(table[2]);
-  const [fourthButton,setFourthbutton]=useState(table[3]);
+  let table = [false, false, false, false];
+  const [firstButton, setFirstbutton] = useState(table[0]);
+  const [secondButton, setSecondbutton] = useState(table[1]);
+  const [thirdButton, setThirdbutton] = useState(table[2]);
+  const [fourthButton, setFourthbutton] = useState(table[3]);
 
   const FirstHandler = (e) => {
     //table[0] = !table[0];
-    setFirstbutton(current=>!current);
-    console.log(Number(firstButton));
-  }
+    setFirstbutton((current) => !current);
+    let id = e.target.id;
+    document.getElementById(id).classList.toggle("clicked");
+  };
   const SecondHandler = (e) => {
-    setSecondbutton(current=>!current);
-    console.log(secondButton);
-  }
+    setSecondbutton((current) => !current);
+    let id = e.target.id;
+    document.getElementById(id).classList.toggle("clicked");
+  };
   const ThirdHandler = (e) => {
-    setThirdbutton(current=>!current);
-    console.log(thirdButton);
-  }
+    setThirdbutton((current) => !current);
+    let id = e.target.id;
+    document.getElementById(id).classList.toggle("clicked");
+  };
   const FourthHandler = (e) => {
-    setFourthbutton(current=>!current);
-    console.log(fourthButton);
-  }
+    setFourthbutton((current) => !current);
+    let id = e.target.id;
+    document.getElementById(id).classList.toggle("clicked");
+  };
 
+  //0000에 대한 코드 수정, 에디터 선택 안해도 넘어가게?
+  const handleSubmit = async (resultnum, categorynum) => {
+    let store = "";
+    let result = [0, 0, 0, 0];
+    categorynum = 1000;
+    result[0] += Number(firstButton);
+    result[1] += Number(secondButton);
+    result[2] += Number(thirdButton);
+    result[3] += Number(fourthButton);
+    resultnum = result.join("");
 
-
-//0000에 대한 코드 수정, 에디터 선택 안해도 넘어가게?
-  const handleSubmit = async(resultnum,categorynum) => {
-    let store=''
-    let result=[0,0,0,0];
-    categorynum=1000;
-    result[0]+=Number(firstButton);
-    result[1]+=Number(secondButton);
-    result[2]+=Number(thirdButton);
-    result[3]+=Number(fourthButton);
-    resultnum=result.join('');
-
-    await axios.get("http://localhost:8000/stores/selected/",{
-    
-    params:{editor:resultnum,
-    category:categorynum}},{
-        withCredentials:true,
-    }).then((response)=>{store=response.data.stores;})
-    .catch(function(error){
+    await axios
+      .get(
+        "http://localhost:8000/stores/selected/",
+        {
+          params: { editor: resultnum, category: categorynum },
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        store = response.data.stores;
+      })
+      .catch(function (error) {
         console.error(error);
-    });
-    return store
-};
-   
+      });
+    return store;
+  };
 
   return (
     <div className="start page">
@@ -69,7 +77,6 @@ function StartPage() {
       <h1>👇원하는 에디터를 선택해주세요!👇</h1>
       <div className="btnSection">
         <button onClick={FirstHandler} className="editor" id="1">
-          <img src={editor1} alt="" />
           홍대생이지만홍대맛집몰라
         </button>
         <button onClick={SecondHandler} className="editor" id="2">
