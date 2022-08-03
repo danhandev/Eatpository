@@ -9,7 +9,7 @@ from stores import views
 # ]
 
 urlpatterns = [
-    path('stores/',views.selected_stores, name = "signup"),
+    path('selected/',views.selected_stores, name = "selected"),
 ]
 
 

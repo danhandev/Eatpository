@@ -1,0 +1,25 @@
+.start {
+    width: 1200px;
+    max-width: 1200px;
+}
+
+.btnSection{
+    display: grid;
+    
+    grid-template-columns: repeat(3, 1fr); 
+    row-gap: 1em;
+    column-gap: 1em;
+}
+
+
+button.editor {
+    border: 2px solid black;
+    width: 350px;
+    height: 264px;
+    min-width: 32px;
+    min-height: 24px;
+}
+
+.submitButton{
+    width: 300px;
+}

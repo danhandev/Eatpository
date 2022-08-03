@@ -33,7 +33,7 @@ function LoginPage({token,setToken}) {
         setUserid("");
         setPassword("");
         setToken(response);
-        navigate("/");
+        navigate("/start");
       } else {
         alert("로그인 실패");
         setUserid("");

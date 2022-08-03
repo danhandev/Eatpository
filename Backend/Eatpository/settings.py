@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     
     # apps
     'accounts',
+    
+    'stores',
 ]
 
 # Auth 유저 모델로 accounts의 User를 쓰겠다는 의미
