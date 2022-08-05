@@ -5,4 +5,5 @@ from accounts.models import Users
 class InformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ('user_id',  'nickname', 'user_num', 'emoji', 'user_information')
+        # 인덱스 순서, 닉네임, 이모지, 한 줄 소개
+        fields = ('user_num', 'nickname', 'emoji', 'user_information')
