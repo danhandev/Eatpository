@@ -60,7 +60,7 @@ function StartPage() {
       )
       .then((response) => {
         store = response.data.stores;
-        navigate('/main');
+        navigate('/');
       })
       .catch(function (error) {
         console.error(error);

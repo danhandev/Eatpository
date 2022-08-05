@@ -1,10 +1,11 @@
 import React from "react";
-
+import Map from "../Map";
 function MainPage () {
     return(
-<h1>
-    메인페이지
-</h1>
+<div>
+    <Map />
+    <h1>여기 메인임</h1>
+</div>
     )
 }
 export default MainPage;
