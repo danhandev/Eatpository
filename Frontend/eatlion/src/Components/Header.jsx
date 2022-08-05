@@ -24,10 +24,10 @@ const Header = ({token,setToken}) => {
         <div className="nav-btns">
           {!isLoggedIn &&
             <div className="notLoggedIn">
-              <Link to="/login" className="Button">
+              <Link to="/login" className="login Button">
                 로그인
               </Link>
-              <Link to="/signup" className="Button">
+              <Link to="/signup" className="join Button ">
                 회원가입
               </Link>
             </div>}

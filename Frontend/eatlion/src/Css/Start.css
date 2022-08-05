@@ -4,12 +4,6 @@ img{
     object-fit: fill;
 }
 
-h1{
-    background: #2B2C32;
-    color: white;
-    padding: 1rem;
-}
-
 .btnSection{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -41,7 +35,7 @@ button.editor {
     border-radius: 8px;  
 }
 
-.editor {
+.editor{
     background-image: url("../Img/editor1.png");
     background-position: no-repeat center right;
     background-size: cover;
@@ -51,11 +45,10 @@ button.editor {
     padding: 1.4rem; 
     font-size: 40px;
     font-weight: 600;
-    
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); */
 }
 
 .clicked{
     background-color: #0D6EFD;
 
-}
+} 

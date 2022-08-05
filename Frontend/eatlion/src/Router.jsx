@@ -12,7 +12,12 @@ const Router = ({ token, setToken }) => {
   // const [token,setToken]=useState('');
   return (
     <Routes>
-      <Route path="/" exact={true} element={<MainPage />} />
+      {
+        (!token) && <Route path="/" exact={true} element={<MainPage />} />}
+      {
+        (token) && <Route path="/" exact={true} element={<StartPage />} />
+      }
+      {/* <Route path="/" exact={true} element={<MainPage />} /> */}
       <Route
         path="/login"
         exact

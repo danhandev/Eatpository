@@ -16,19 +16,19 @@ img {
 .nav {
     display: flex;
     flex-direction: row;
+    padding: 0 4rem 0 4rem;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-
-    @media (min-width: 600px) {
-        padding: 20px;
-    }
 }
 
 .nav-btns {
-    display: flex;
-    align-items: center;
+    align-items: center; 
     margin: 16px;
+}
+
+.login{
+    margin: 0 0.6rem;
 }
 
 .Button{

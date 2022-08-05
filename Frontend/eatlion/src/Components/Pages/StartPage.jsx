@@ -1,7 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "../../Css/Start.css";
 import editor1 from "../../Img/editor1.png";
+import editor2 from "../../Img/editor2.png";
+import editor3 from "../../Img/editor3.png";
+import editor4 from "../../Img/editor4.png";
 import axios from "axios";
 
 function StartPage() {
@@ -10,6 +13,7 @@ function StartPage() {
   const [secondButton, setSecondbutton] = useState(table[1]);
   const [thirdButton, setThirdbutton] = useState(table[2]);
   const [fourthButton, setFourthbutton] = useState(table[3]);
+  const navigate = useNavigate();
 
   const FirstHandler = (e) => {
     //table[0] = !table[0];
@@ -56,6 +60,7 @@ function StartPage() {
       )
       .then((response) => {
         store = response.data.stores;
+        navigate('/main');
       })
       .catch(function (error) {
         console.error(error);
