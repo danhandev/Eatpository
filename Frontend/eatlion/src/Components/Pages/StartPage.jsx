@@ -41,7 +41,7 @@ function StartPage() {
   const handleSubmit = async (resultnum, categorynum) => {
     let store = "";
     let result = [0, 0, 0, 0];
-    categorynum = 1000;
+    categorynum ='1111';
     result[0] += Number(firstButton);
     result[1] += Number(secondButton);
     result[2] += Number(thirdButton);
@@ -52,7 +52,7 @@ function StartPage() {
       .get(
         "http://localhost:8000/stores/selected/",
         {
-          params: { editor: resultnum, category: categorynum },
+          params: { editor: resultnum, category: parseInt(categorynum) },
         },
         {
           withCredentials: true,

@@ -12,4 +12,3 @@ class Users(AbstractUser):
     user_num = models.IntegerField(blank=True,null=True) # 인덱스 순서
     emoji = models.IntegerField(null=True,blank=True) # 이모지
     user_information = models.CharField(max_length=100,null=True,blank=True) # 한줄 소개
-    

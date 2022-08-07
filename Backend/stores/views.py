@@ -15,49 +15,37 @@ import json
 # Create your views here.
 @api_view(['GET'])
 def selected_stores(request) :
-    editor = request.GET.get("editor")
-    category = request.GET.get("category")
-    num = 0
+    selected_editor = request.GET.get("editor")
+    selected_category = request.GET.get("category")
+    editor_num = 0
     store_list = []
-    for i in editor :
-        num = num + 1
-        
-        if i =='1' :
-            
-            user = Users.objects.get(user_num = num)
-            
-            stores = Stores.objects.filter(user = user)
-            print(stores)
-            obj_num = stores.count() 
-            
-            for x in range(obj_num) :
-                store = StoreSerializer(stores[x])
-                store_list.append(store.data)
-    num = 0 
-    for i in category :
-        num = num + 1
+
+    for i in selected_editor :
+        editor_num = editor_num + 1
         if i == '1':
             
-            if num == 1 :
-                category = "한식"
-            elif num ==2 : 
-                category = "중식"
+            user = Users.objects.get(user_num = editor_num)
+            category_num = 0 
+            for j in selected_category :
+                category_num = category_num + 1
+                if j == '1':
+                    
+                    if category_num == 1 :
+                        category = "한식"
+                    elif category_num ==2 : 
+                        category = "중식"
             
-            elif num ==3 : 
-                category = "일식"
-            elif num ==4 : 
-                category = "양식"
-            # elif num ==5 : 
-            #     category = "카페"
-            # else : 
-            #     category = "술집"          
+                    elif category_num ==3 : 
+                        category = "일식"
+                    elif category_num ==4 : 
+                        category = "양식"
 
-            stores = Stores.objects.filter(category = category)
-            obj_num = stores.count() 
-            i = 0
-            for x in range(obj_num) :
-                store = StoreSerializer(stores[x])
-                if store.data not in store_list :
-                    store_list.append(store.data)
-           
+                    
+                    stores = Stores.objects.filter(user = user,category = category)
+                    obj_num = stores.count() 
+                    
+                    for x in range(obj_num) :
+                        store = StoreSerializer(stores[x])
+                        store_list.append(store.data)
+            
     return Response({"stores" : store_list})
