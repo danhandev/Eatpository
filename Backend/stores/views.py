@@ -1,17 +1,12 @@
-
 import random
-from django.shortcuts import render
 from stores.serializers import StoreSerializer,StoreRandomSerializer
 from .models import Stores
 from accounts.models import Users
-
-from django.shortcuts import render,redirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework import status
-from django.http  import JsonResponse
-import json
+from stores.serializers import Stores_Information
+
+
 # Create your views here.
 @api_view(['GET'])
 def selected_stores(request) :
@@ -61,4 +56,16 @@ def random_store(request):
     store = Stores.objects.get(id = random_num)
     store = StoreRandomSerializer(store)
     return Response({"random_sotre" : store.data})
-    
+
+#가게정보
+@api_view(['GET'])
+def stores_information(request,store_id):
+
+    if request.method=="GET":
+        try : 
+            store = Stores.objects.get(id = store_id)
+            store = Stores_Information(store)
+            print(store)
+            return Response({"store_information": store.data})
+        except : 
+            return Response({"message": "error"})

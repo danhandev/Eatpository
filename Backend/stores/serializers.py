@@ -8,5 +8,9 @@ class StoreSerializer(serializers.ModelSerializer):
 
 class StoreRandomSerializer(serializers.ModelSerializer):
     class Meta : 
+        model = Stores 
+
+class Stores_Information(serializers.ModelSerializer):
+    class Meta:
         model = Stores
         fields = "__all__"
