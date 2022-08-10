@@ -61,14 +61,12 @@ const Map = () => {
   }
 
   const listitems = storeList.map((store, idx) => {
-    <li key={idx}>{store}</li>;
     //console.log("store :", store);
     return (
-      
-       <div className="listsection" key={store.id}>
-        <div  className="store_name">{store.store_name} </div>
+      <div className="lists" key={store.id}>
+        <div className="store_name">{store.store_name} </div>
         <div className="main_menu">{store.main_menu}</div>
-        </div>
+      </div>
     );
   });
   console.log(listitems);
@@ -115,7 +113,7 @@ const Map = () => {
           </div>
         </div>
         <div className="sectionForth">
-          <button onClick={setList} className="random">
+          <button onClick={setList} className="randomButton">
             랜덤으로 맛집을 추천받아볼까요?
           </button>
         </div>
