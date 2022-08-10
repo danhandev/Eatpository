@@ -64,10 +64,11 @@ const Map = () => {
     <li key={idx}>{store}</li>;
     //console.log("store :", store);
     return (
-      <>
-        <div className="store_name">{store.store_name} </div>
+      
+       <div className="listsection" key={store.id}>
+        <div  className="store_name">{store.store_name} </div>
         <div className="main_menu">{store.main_menu}</div>
-      </>
+        </div>
     );
   });
   console.log(listitems);
