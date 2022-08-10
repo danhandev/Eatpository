@@ -59,24 +59,19 @@ const Map = () => {
     infoWindow.setContent(content);
     //infoWindow.open(map, marker);
   }
-  
-  
-    console.log(storeList[0]);
-    
-    // const listitems = storeList.map((store, idx) => {<li key={idx}>{store.props.children}</li>
-    //   return (
-    //     <li>
-    //       {store.props.children}
-    //         {/* {mainmenu} */}
-    //     </li>
-    //   );
-    // });
-    // let storename = listitems.store_name;
-    // let mainmenu = listitems.main_menu;
-    // console.log(listitems);
-    // console.log(storename);
-    // console.log(mainmenu);
-  
+
+  const listitems = storeList.map((store, idx) => {
+    <li key={idx}>{store}</li>;
+    //console.log("store :", store);
+    return (
+      <>
+        <div className="store_name">{store.store_name} </div>
+        <div className="main_menu">{store.main_menu}</div>
+      </>
+    );
+  });
+  console.log(listitems);
+
   //document.getElementById('table').appenchild();
 
   const setList = () => {};
@@ -113,11 +108,9 @@ const Map = () => {
           <div className="title">
             <div className="subtext">상호명</div>
             <div className="subtext">대표메뉴</div>
-            <div className="subtext">거리순</div>
           </div>
           <div className="listSection" id="table">
-            <ul>          
-              </ul>
+            {listitems}
           </div>
         </div>
         <div className="sectionForth">

@@ -15,10 +15,11 @@ p {
 }
 
 .title {
-    display: flex;
+    display: grid;
     flex-direction: row;
-    justify-content: space-between;
-
+    grid-template-columns: repeat(2, 1fr); 
+    text-align: start;
+    
     width: 100%; 
     font-style: normal;
     font-size: 13px;
@@ -86,6 +87,18 @@ p {
     padding: 1rem;
     gap: 1rem;
 }
+
+.listSection{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    text-align: start;
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
+
+    font-size: 14px;
+
+}
+
 
 .sectionForth {
     width: 307px;
