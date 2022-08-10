@@ -6,7 +6,7 @@ import editor2 from "../../Img/editor2.png";
 import editor3 from "../../Img/editor3.png";
 import editor4 from "../../Img/editor4.png";
 import axios from "axios";
-
+import ListAPI from "../../API/ListAPI";
 function StartPage() {
   let table = [false, false, false, false];
   const [firstButton, setFirstbutton] = useState(table[0]);
@@ -47,26 +47,30 @@ function StartPage() {
     result[2] += Number(thirdButton);
     result[3] += Number(fourthButton);
     resultnum = result.join("");
-
-    await axios
-      .get(
-        "http://localhost:8000/stores/selected/",
-        {
-          params: { editor: resultnum, category: parseInt(categorynum) },
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        store = response.data.stores;
-        navigate('/');
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    return store;
+    ListAPI(resultnum,categorynum).then((response)=>{
+      navigate('/',{state:store});
+    });
   };
+  //   await axios
+  //     .get(
+  //       "http://localhost:8000/stores/selected/",
+  //       {
+  //         params: { editor: resultnum, category: parseInt(categorynum) },
+  //       },
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     )
+  //     .then((response) => {
+  //       store = response.data.stores;
+  //       navigate('/',
+  //         {state:{store}});
+  //     })
+  //     .catch(function (error) {
+  //       console.error(error);
+  //     });
+  //   return store;
+  // };
 
   return (
     <div className="start page">

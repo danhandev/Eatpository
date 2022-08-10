@@ -28,10 +28,13 @@
 
 /* global kakao */
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../Css/Maps.css";
+import ListAPI from "../API/ListAPI";
 const { kakao } = window;
 
 const Map = () => {
+  const location=useLocation();
   let storeList = [];
   let makers = [];
 
@@ -44,6 +47,7 @@ const Map = () => {
     };
     const map = new kakao.maps.Map(container, options);
     const center = map.getCenter();
+   //console.log(location.state.store);
   }, []);
 
   //검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
@@ -58,9 +62,9 @@ const Map = () => {
   }
 
   const setList = () => {};
-
-  const number = 1;
-
+const number=1;
+  //const number = location.state.store.length;
+  
   return (
     <div>
       <div className="wrapper">
