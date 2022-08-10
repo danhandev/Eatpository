@@ -9,12 +9,13 @@ class Stores(models.Model):
     main_menu = models.CharField(max_length=100, null=True)
     address = models.CharField(max_length=100, null=True)
     #coordinate = models.PointField(blank=False, null=True)
-    longitude = models.FloatField(null=True) # 경도
-    latitude = models.FloatField(null=True) # 위도
+    longitude = models.FloatField(null=True,blank=True) # 경도
+    latitude = models.FloatField(null=True,blank=True) # 위도
     time = models.CharField(max_length=200, null=True)
     phone_number = models.CharField(max_length=50, null=True)
-    image = models.CharField(max_length=100, null=True)
-    user = models.ManyToManyField(Users, through="Recommends")
+    image = models.CharField(max_length=100, null=True,blank=True)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE,null=True)
+    category = models.CharField(max_length = 10, null = False)
 
 # User-Stores의 중간 테이블 중개 모델
 class Recommends(models.Model):

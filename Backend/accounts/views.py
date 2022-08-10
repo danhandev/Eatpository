@@ -122,7 +122,7 @@ def user_logout(request):
 def user_id(request):
     if request.method == "GET" :
         try:
-            phone_number = request.META.get("HTTP_PHONENUMBER")
+            phone_number = request.GET.get("phone_number")
             user_id = Users.objects.get(phone_number = phone_number).username
         except : 
             return Response({"message":"error"})
@@ -137,8 +137,8 @@ def user_id(request):
 def user_password(request):
     if request.method == "GET" :
         try :
-            user_id = request.META.get("HTTP_USERID")
-            phone_number = request.META.get("HTTP_PHONENUMBER")
+            user_id = request.GET.get("user_id")
+            phone_number = request.GET.get("phone_number")
             user = Users.objects.get(username = user_id)
         except :
             return Response({"message" : "user does not exist : except occurs"})
