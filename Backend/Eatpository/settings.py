@@ -13,6 +13,8 @@ from datetime import datetime
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+from .secrets import *
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 #Eatpository/backend/eatpository/settings.py
@@ -23,19 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-secret_file = os.path.join(BASE_DIR, 'secrets.json')
-
-with open(secret_file) as f:
-    secrets = json.loads(f.read())
-
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {} environment variable".format(setting)
-        raise ImproperlyConfigured(error_msg)
-
-SECRET_KEY = get_secret("SECRET_KEY")
+SECRET_KEY = MY_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -66,6 +56,7 @@ INSTALLED_APPS = [
     # apps
     'accounts',
     'stores',
+    'information',
 ]
 
 # Auth 유저 모델로 accounts의 User를 쓰겠다는 의미
@@ -78,7 +69,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-JWT_SECRET_KEY =  get_secret("SECRET_KEY")
+JWT_SECRET_KEY =  MY_SECRET_KEY
 JWT_ALGORITHM =  'HS256'
 
 
