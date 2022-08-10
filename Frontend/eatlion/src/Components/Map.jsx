@@ -61,9 +61,11 @@ const Map = () => {
     infoWindow.setContent(content);
     //infoWindow.open(map, marker);
   }
-  const listitems=storeList.map((store,idx)=>{
-  return store.store_name});
-    
+  function name (){
+  const listitems=storeList.map((store,idx)=>
+  <li key={idx}>{store}</li>  )
+  return <ul>{listitems.store_name}</ul>
+  }
     //document.getElementById('table').appenchild();
   
   const setList = () => {};
@@ -103,7 +105,7 @@ const number=1;
             <div className="subtext">거리순</div>
           </div>
           <div className="listSection" id="table">
-           
+           <li>{name()}</li>
           </div>
         </div>
         <div className="sectionForth">
