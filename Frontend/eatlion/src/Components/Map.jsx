@@ -34,7 +34,7 @@ import ListAPI from "../API/ListAPI";
 const { kakao } = window;
 
 const Map = () => {
-  const location=useLocation();
+  const location = useLocation();
   let storeList = location.state.response;
   let makers = [];
 
@@ -47,8 +47,6 @@ const Map = () => {
     };
     const map = new kakao.maps.Map(container, options);
     const center = map.getCenter();
-
-   
   }, [storeList]);
 
   //검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
@@ -61,17 +59,30 @@ const Map = () => {
     infoWindow.setContent(content);
     //infoWindow.open(map, marker);
   }
-  function name (){
-  const listitems=storeList.map((store,idx)=>
-  <li key={idx}>{store}</li>  )
-  return <ul>{listitems.store_name}</ul>
-  }
-    //document.getElementById('table').appenchild();
   
+  
+    console.log(storeList[0]);
+    
+    // const listitems = storeList.map((store, idx) => {<li key={idx}>{store.props.children}</li>
+    //   return (
+    //     <li>
+    //       {store.props.children}
+    //         {/* {mainmenu} */}
+    //     </li>
+    //   );
+    // });
+    // let storename = listitems.store_name;
+    // let mainmenu = listitems.main_menu;
+    // console.log(listitems);
+    // console.log(storename);
+    // console.log(mainmenu);
+  
+  //document.getElementById('table').appenchild();
+
   const setList = () => {};
-const number=1;
+  const number = 1;
   //const number = location.state.store.length;
-  
+
   return (
     <div>
       <div className="wrapper">
@@ -105,7 +116,8 @@ const number=1;
             <div className="subtext">거리순</div>
           </div>
           <div className="listSection" id="table">
-           <li>{name()}</li>
+            <ul>          
+              </ul>
           </div>
         </div>
         <div className="sectionForth">

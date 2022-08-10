@@ -49,7 +49,6 @@ function StartPage() {
     resultnum = result.join("");
     ListAPI(resultnum,categorynum).then((response)=>{
       navigate('/main',{state:{response}});
-      console.log(response)
       
     });
   };
