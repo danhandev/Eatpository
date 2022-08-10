@@ -35,7 +35,7 @@ const { kakao } = window;
 
 const Map = () => {
   const location=useLocation();
-  let storeList = [];
+  let storeList = location.state.response;
   let makers = [];
 
   // 지도를 생성합니다
@@ -47,8 +47,9 @@ const Map = () => {
     };
     const map = new kakao.maps.Map(container, options);
     const center = map.getCenter();
-   //console.log(location.state.store);
-  }, []);
+
+   
+  }, [storeList]);
 
   //검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
   let infoWindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -60,7 +61,11 @@ const Map = () => {
     infoWindow.setContent(content);
     //infoWindow.open(map, marker);
   }
-
+  const listitems=storeList.map((store,idx)=>{
+  return store.store_name});
+    
+    //document.getElementById('table').appenchild();
+  
   const setList = () => {};
 const number=1;
   //const number = location.state.store.length;
@@ -97,7 +102,9 @@ const number=1;
             <div className="subtext">대표메뉴</div>
             <div className="subtext">거리순</div>
           </div>
-          <div className="listSection" id="table"></div>
+          <div className="listSection" id="table">
+           
+          </div>
         </div>
         <div className="sectionForth">
           <button onClick={setList} className="random">

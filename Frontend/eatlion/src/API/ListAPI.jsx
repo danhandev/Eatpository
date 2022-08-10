@@ -20,6 +20,7 @@ const ListAPI = async (resultnum, categorynum) => {
     .catch(function (error) {
       console.error(error);
     });
+    console.log(store)
   return store;
 };
 export default ListAPI;

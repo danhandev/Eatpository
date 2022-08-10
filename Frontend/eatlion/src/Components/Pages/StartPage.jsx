@@ -48,7 +48,9 @@ function StartPage() {
     result[3] += Number(fourthButton);
     resultnum = result.join("");
     ListAPI(resultnum,categorynum).then((response)=>{
-      navigate('/',{state:store});
+      navigate('/main',{state:{response}});
+      console.log(response)
+      
     });
   };
   //   await axios

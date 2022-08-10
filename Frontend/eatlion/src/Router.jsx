@@ -13,11 +13,16 @@ const Router = ({ token, setToken }) => {
   return (
     <Routes>
       {/* {
-        (!token) && <Route path="/start" exact={true} element={<StartPage />} />}
+         <Route path="/start" exact={true} element={<StartPage />} />}
       {
         (token) && <Route path="/" exact={true} element={<StartPage />} />
       } */}
-      <Route path="/" exact={true} element={<StartPage />} />
+      <Route path="/" exact={true} element={<StartPage token={token} setToken={setToken} />} />
+      <Route
+        path="/main"
+        exact
+        element={<MainPage token={token} setToken={setToken} />}
+      />
       <Route
         path="/login"
         exact
