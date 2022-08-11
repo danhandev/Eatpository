@@ -1,6 +1,6 @@
 import random
 from django.shortcuts import render
-from stores.serializers import StoreSerializer,StoreRandomSerializer
+from stores.serializers import StoreSerializer,StoreRandomSerializer,Stores_Information
 from .models import Stores
 from accounts.models import Users
 from django.shortcuts import render,redirect
@@ -114,3 +114,14 @@ def save(request) :
         category = request.POST.get('category')
     )
     return redirect('edit')
+
+@api_view(['GET'])
+def stores_information(request, store_id):
+    if request.method == "GET":
+        try:
+            store = Stores.objects.get(id=store_id)
+            store = Stores_Information(store)
+            print(store)
+            return Response({"store_information": store.data})
+        except:
+            return Response({"message": "error"})

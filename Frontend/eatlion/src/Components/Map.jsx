@@ -9,20 +9,39 @@ const Map = () => {
   let storeList = JSON.parse(sessionStorage.getItem('result')); 
   let editorlist = JSON.parse(sessionStorage.getItem('listkey')); 
   let result=editorlist+1111;
-  // result[0]=(location.state.resultnum[0]);
-  // result[1]=(location.state.resultnum[1]);
-  // result[2]=(location.state.resultnum[2]);
-  // result[3]=(location.state.resultnum[3]);
+  result=[...result]
+ result[0]=Number(result[0]);
+ result[1]=Number(result[1]);
+ result[2]=Number(result[2]);
+ result[3]=Number(result[3]);
+ result[4]=Number(result[4]);
+ result[5]=Number(result[5]);
+ result[6]=Number(result[6]);
+ result[7]=Number(result[7]);
 
+  // let result=[0,0,0,0,1,1,1,1,]
+  // result[0]=(editorlist[0]);
+  // result[1]=(editorlist[1]);
+  // result[2]=(editorlist[2]);
+  // result[3]=(editorlist[3]);
+  
   console.log(result)
   let makers = [];
 
   const editorHandler = (e) => {
     let id = e.target.id;
-    result[id] = !result[id];
+    (result[id]) = (!result[id])*1;
     console.log(result[id])
     document.getElementById(id).classList.toggle("clicked");
     console.log('handler clicked, ', result);
+    let editornum=result.slice(0,4);
+    editornum=editornum.join('');
+    let categorynum=result.slice(4,8);
+    categorynum=categorynum.join('');
+    ListAPI(editornum,categorynum).then((response)=>{
+      sessionStorage.setItem('listkey',JSON.stringify(editornum,categorynum)); 
+      
+    })
   }
 
   // 지도를 생성합니다
@@ -34,6 +53,13 @@ const Map = () => {
     };
     const map = new kakao.maps.Map(container, options);
     const center = map.getCenter();
+    for(let i=0;i<4;i++){
+      if (result[i]===1){
+        document.getElementById(i).classList.toggle("clicked");
+
+      }
+    }
+
 
   }, [storeList]);
 
