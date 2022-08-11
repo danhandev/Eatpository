@@ -1,6 +1,3 @@
-
-
-
 from django.contrib import admin
 from django.urls import path,include
 from stores import views
@@ -14,6 +11,4 @@ urlpatterns = [
     path('save/',views.save, name = "save"),
     # path('random/',views.random_store, name = "random"),
     #path('imformation/',views.stores_imformation, name = "stores_imformation"),
-]
-
-
+] 

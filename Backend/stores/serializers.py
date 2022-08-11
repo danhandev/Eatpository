@@ -12,5 +12,5 @@ class StoreRandomSerializer(serializers.ModelSerializer):
 
 class Stores_Information(serializers.ModelSerializer):
     class Meta:
-        model = Stores
+        model = Stores 
         fields = "__all__"

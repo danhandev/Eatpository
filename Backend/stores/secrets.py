@@ -1,1 +1,1 @@
-KAKAO_API_KEY = "KakaoAK 60b9ab82c8b853efb5af6feb72a737e2"
+KAKAO_API_KEY="KakaoAK 644c566b5ff9a3f57dbd060deebed6bd" 

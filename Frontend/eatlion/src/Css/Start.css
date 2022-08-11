@@ -1,0 +1,54 @@
+/* Start.css (8/3 기준 아직 수정중) */
+
+img{
+    object-fit: fill;
+}
+
+.btnSection{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+}
+
+button.editor {
+    border-radius: 8px;
+    width: 350px;
+    height: 264px;
+    min-width: 32px;
+    min-height: 24px;
+    overflow: hidden;
+    -webkit-transition: background-color 0.2s, -webkit-transform 0.2s;
+    transition:background-color 0.2s, transform 0.2s;
+}
+
+.submitButton{
+    margin-top: 24px;
+    width: 40vw;
+    height: 48px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #0D6EFD;
+    color: white;
+    border-radius: 8px;  
+}
+
+.editor{
+    background-image: url("../Img/editor1.png");
+    background-position: no-repeat center right;
+    background-size: cover;
+    background-color: #D9D9D9;
+    color: white;
+    text-align: end; 
+    padding: 1.4rem; 
+    font-size: 40px;
+    font-weight: 600;
+    /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); */
+}
+
+.clicked{
+    background-color: #0D6EFD;
+
+} 

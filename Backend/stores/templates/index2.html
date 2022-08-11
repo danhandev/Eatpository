@@ -1,4 +1,3 @@
-
 검색된 식당 이름 : {{info.store_name}} <br>
 검색된 식당의 주소 : {{info.address}} <br><br>
 
@@ -6,6 +5,7 @@
 
 <form method = "POST" action = "http://127.0.0.1:8000/stores/save/">
     {% csrf_token %}
+    <h1 >밑에꺼 건드리지 마 <h1/>
     <textarea name="info">{{info}}</textarea> 
     <!-- <input type="text" value = {{info.store_name}} name="store_name">
     <input type="text" value = {{info.address}} name="address">
@@ -33,4 +33,4 @@
     <input type="file" value = "이미지2" name="image2"> -->
     <br><br>
     <input type="submit" value = "검색!">
-</form>
+</form> 

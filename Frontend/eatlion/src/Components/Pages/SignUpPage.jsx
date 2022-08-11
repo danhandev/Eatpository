@@ -32,18 +32,13 @@ function SignUpPage({token,setToken}) {
     } else {
       SignUpAPI(userid, password, userphone).then((response) => {
         if (response !== "") {
-          alert("회원가입 성공!!!");
-          console.log(response)
+          alert("회원가입 성공!!!"); 
           setUserid("");
           setPassword("");
           setPasswordToConfirm("");
           setUserPhone("");
           setToken(response);
           navigate('/');
-         
-
-          
-          
         } else {
          
           alert(

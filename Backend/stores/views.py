@@ -72,7 +72,6 @@ def edit(request):
     if request.method == "GET" : 
         return render(request,'index.html')
     elif request.method == "POST" : 
-        
         store = request.POST.get("store_name")
         searching = '홍대' + store
         url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(
@@ -81,7 +80,7 @@ def edit(request):
             "Authorization":  KAKAO_API_KEY
         }
         try:
-            places = requests.get(url, headers=headers).json()['documents'][0]
+            places = requests.get(url, headers=headers).json()['documents'][0] 
         except:
             return render(request,'index2.html',{"message" : "식당 정보를 불러올 수 없음"})
         data = {}
@@ -95,7 +94,6 @@ def edit(request):
         data['time'] = NULL
         data['phone_number'] = places['phone']
         data['image'] = NULL
-
         return render(request,'index2.html',{'info' : data})
 
 @api_view(['POST'])

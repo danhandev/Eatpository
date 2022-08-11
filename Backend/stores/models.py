@@ -14,8 +14,9 @@ class Stores(models.Model):
     image = models.CharField(max_length=100, null=True,blank=True)
     user = models.ForeignKey(Users, on_delete=models.CASCADE,null=True)
     category = models.CharField(max_length = 10, null = False)
-
-# User-Stores의 중간 테이블 중개 모델
+    def __str__(self) -> str:
+        return self.store_name
+        
 class Recommends(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE) # 사용자 Foreign Key
     store = models.ForeignKey(Stores, on_delete=models.CASCADE) # 식당 Foreign Key

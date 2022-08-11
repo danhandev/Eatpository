@@ -11,6 +11,7 @@ const LogInAPI = async (userid, password) => {
     },{withCredentials:true,})
     .then((response) => {
       token = response.data.Token;
+      sessionStorage.setItem('token',JSON.stringify(token));
     })
     .catch(function (error) {
       console.log(error);
