@@ -1,0 +1,1 @@
+KAKAO_API_KEY = "KakaoAK 60b9ab82c8b853efb5af6feb72a737e2"

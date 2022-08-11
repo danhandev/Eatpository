@@ -51,8 +51,13 @@ def signup(request):
 #         access_token = jwt.encode(payload, JWT_SECRET_KEY , algorithm = JWT_ALGORITHM).decode("utf-8")
 #         return JsonResponse({"messages" : "LOGIN SUCCESS", "JWT" : access_token}, status = 201)
 
+
+
 def home(request):
     return render(request, 'index.html')
+
+
+
 # @api_view(['POST'])
 # def user_login(request):
 #     # authenticate 사용해서 auth의 User 인증
@@ -70,10 +75,10 @@ def home(request):
 def user_login(request):
     if request.method == "POST":
         data =  json.loads(request.body.decode('utf-8'))
-        username = data.get("user_id")
-        password = data.get("password")
+        username = data.get("user_id") ## user_id에 해당하는 값 받아오기
+        password = data.get("password")## password에 해당하는 값 받아오기
         try : 
-            user = Users.objects.get(username =username)
+            user = Users.objects.get(username =username) ## 사용자가 입력한 user_id 를 Users 모델 내 username filed로 
         except : 
             return Response({"message": "error"})
         if user.password == password:
@@ -149,7 +154,6 @@ def user_password(request):
                 return Response({"message" : "user does not exist : phone_num not correct"})
         else : 
             return Response({"message" : "user does not exist : user_id not correct"})
-
 
 ######비밀번호 재설정!!!!
 @api_view(['PATCH'])
