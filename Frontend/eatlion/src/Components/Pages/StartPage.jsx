@@ -39,7 +39,6 @@ function StartPage() {
 
   //0000에 대한 코드 수정, 에디터 선택 안해도 넘어가게?
   const handleSubmit = async (resultnum, categorynum) => {
-    let store = "";
     let result = [0, 0, 0, 0];
     categorynum ='1111';
     result[0] += Number(firstButton);
@@ -48,7 +47,10 @@ function StartPage() {
     result[3] += Number(fourthButton);
     resultnum = result.join("");
     ListAPI(resultnum,categorynum).then((response)=>{
-      navigate('/main',{state:{response, resultnum}});
+      //navigate('/main',{state:{response}});
+      sessionStorage.setItem('listkey',JSON.stringify(resultnum)); 
+      navigate('/main',{state:{response}});
+
     });
   };
   //   await axios

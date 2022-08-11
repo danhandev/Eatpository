@@ -7,16 +7,22 @@ const { kakao } = window;
 const Map = () => {
   const location = useLocation();
   let storeList = JSON.parse(sessionStorage.getItem('result')); 
-  // let result = location.state.resultnum + 1111;
-  // result = result.split(); 
-  // console.log(result); 
+  let editorlist = JSON.parse(sessionStorage.getItem('listkey')); 
+  let result=editorlist+1111;
+  // result[0]=(location.state.resultnum[0]);
+  // result[1]=(location.state.resultnum[1]);
+  // result[2]=(location.state.resultnum[2]);
+  // result[3]=(location.state.resultnum[3]);
+
+  console.log(result)
   let makers = [];
 
   const editorHandler = (e) => {
     let id = e.target.id;
-    // result[id] = !result[id];
-    // document.getElementById(id).classList.toggle("clicked");
-    // console.log('handler clicked, ', result);
+    result[id] = !result[id];
+    console.log(result[id])
+    document.getElementById(id).classList.toggle("clicked");
+    console.log('handler clicked, ', result);
   }
 
   // 지도를 생성합니다
@@ -28,6 +34,7 @@ const Map = () => {
     };
     const map = new kakao.maps.Map(container, options);
     const center = map.getCenter();
+
   }, [storeList]);
 
   //검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
@@ -70,10 +77,10 @@ const Map = () => {
         <div className="sectionSecond">
           <p>원하는 음식 종류를 선택해주세요</p>
           <div className="cardsSection">
-            <button onClick={editorHandler} className="card" id="4">한식</button>
-            <button onClick={editorHandler} className="card" id="5">일식</button>
-            <button onClick={editorHandler} className="card" id="6">양식</button>
-            <button onClick={editorHandler} className="card" id="7">중식</button>
+            <button onClick={editorHandler} className="card clicked" id="4">한식</button>
+            <button onClick={editorHandler} className="card clicked" id="5">일식</button>
+            <button onClick={editorHandler} className="card clicked" id="6">양식</button>
+            <button onClick={editorHandler} className="card clicked" id="7">중식</button>
           </div>
         </div>
         <div className="sectionThird">

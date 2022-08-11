@@ -14,7 +14,7 @@ const Router = ({ token, setToken }) => {
   return (
     // storeList를 가진 경우, 멋사먹자 로고 클릭 시 start화면이 아닌 main으로 넘어가게 하였음
     <Routes>
-      {storeList !== null && (
+      {storeList !== undefined && (
         <Route path="/" exact={true} element={<MainPage />} />
       )}
       <Route
