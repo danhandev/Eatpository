@@ -35,7 +35,8 @@ const { kakao } = window;
 
 const Map = () => {
   const location = useLocation();
-  let storeList = location.state.response;
+  let storeList = JSON.parse(sessionStorage.getItem('result'));
+  //let storeList = location.state.response;
   let makers = [];
 
   // 지도를 생성합니다
@@ -68,14 +69,11 @@ const Map = () => {
         <div className="main_menu">{store.main_menu}</div>
       </div>
     );
-  });
-  console.log(listitems);
+  }); 
 
-  //document.getElementById('table').appenchild();
 
   const setList = () => {};
-  const number = 1;
-  //const number = location.state.store.length;
+  const number = storeList.length;
 
   return (
     <div>
@@ -83,10 +81,10 @@ const Map = () => {
         <div className="sectionFirst">
           <p>원하는 에디터를 선택해주세요</p>
           <div className="cardsSection">
-            <div className="card">표</div>
+            <div className="card">송</div>
             <div className="card">큐</div>
             <div className="card">란</div>
-            <div className="card">송</div>
+            <div className="card">표</div>
           </div>
         </div>
         <div className="sectionSecond">

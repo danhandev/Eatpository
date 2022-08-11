@@ -10,14 +10,18 @@ import MainPage from "./Components/Pages/MainPage";
 
 const Router = ({ token, setToken }) => {
   // const [token,setToken]=useState('');
+  let storeList = JSON.parse(sessionStorage.getItem("result"));
   return (
+    // storeList를 가진 경우, 멋사먹자 로고 클릭 시 start화면이 아닌 main으로 넘어가게 하였음
     <Routes>
-      {/* {
-         <Route path="/start" exact={true} element={<StartPage />} />}
-      {
-        (token) && <Route path="/" exact={true} element={<StartPage />} />
-      } */}
-      <Route path="/" exact={true} element={<StartPage token={token} setToken={setToken} />} />
+      {storeList !== null && (
+        <Route path="/" exact={true} element={<MainPage />} />
+      )}
+      <Route
+        path="/"
+        exact={true}
+        element={<StartPage token={token} setToken={setToken} />}
+      />
       <Route
         path="/main"
         exact

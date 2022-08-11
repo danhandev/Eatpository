@@ -4,7 +4,6 @@ function MainPage () {
     return(
 <div>
     <Map />
- 
 </div>
     )
 }
