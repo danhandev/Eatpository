@@ -32,11 +32,12 @@ import { useLocation } from "react-router-dom";
 import "../Css/Maps.css";
 import ListAPI from "../API/ListAPI";
 const { kakao } = window;
-
 const Map = () => {
   const location = useLocation();
   let storeList = JSON.parse(sessionStorage.getItem('result'));
-  //let storeList = location.state.response;
+  let result = location.state.resultnum + 1111;
+  result = result.split(); 
+  console.log(result);
   let makers = [];
 
   // 지도를 생성합니다
