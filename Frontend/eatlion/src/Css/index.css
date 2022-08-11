@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+body{
+    margin: 0;
+    overflow: scroll;
+}
+.page{
+    font-family: "Noto Sans KR";
+    text-align: center;
+    position:absolute;
+    top: 100px;
+    bottom: 0;
+    width: 100%;
+    max-width: 640px;
+    padding: 0 1.5rem;
+
+    left: 50%;
+    transform: translate(-50%,0); 
+    margin-bottom: 120px;
+}
+
+.fullsize{
+    min-height: 100vh;
+    margin: 0 auto; 
+}
+
+.contentWrap{
+    text-align: start;
+}
+
+.titleWrap{ 
+    font-size: 1.6rem;
+    font-weight: 700;
+    color:#262626;
+} 
+
+.inputTitle{
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin-top: 2rem;
+}
+.inputWrap{
+    display: flex;
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 8px;
+    background-color: white;
+    border: 1px solid #d3d3d3;
+}
+
+.inputWrap:focus-within{
+    border: 1px solid #0D6EFD;
+}
+
+.input{
+    width: 100%;
+    outline: none;
+    border: none;
+height: 17px;
+font-size: 14px;
+font-weight: 400;
+}
+
+.input::placeholder{
+    color: #dadada;
+}
+.errorMessageWrap{
+    margin-top: 8px;
+    color: #ef0000;
+    font-size:12px
+}
+.bottomButton{
+    margin-top: 36px;
+    width: 100%;
+    height: 48px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #0D6EFD;
+    color: white;
+    border-radius: 8px;  
+}
+
+.bottomButton:disabled{
+    background-color: #E9ECEF;
+    cursor: default;
+    color: #6C757D;
+}
+
+.subText{
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 200;
+    line-height: 150%;
+    color: #828282;
+}
+
+.findSection{
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+a{
+    font-size: 12px;
+    text-decoration: none;
+    color: #0D6EFD;
+}
+
+@media screen and (min-width: 640px) and (max-width: 1024px){
+   .page{
+      width: 90vw; 
+   }
+}
+
+@media screen and (max-width: 640px){
+   .page{
+        top: 80px;
+      width: 90vw; 
+   }
+
+    .titleWrap{ 
+        font-size: 24px; 
+    }
+
+    .inputTitle{
+        margin-top: 1rem;
+        font-size: 14px; 
+    }
+
+    .bottomButton{
+        font-size: 14px;
+    }
+} 
