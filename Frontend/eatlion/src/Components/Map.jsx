@@ -1,31 +1,3 @@
-// /* global kakao */
-// import React, { useEffect } from 'react';
-
-// const { kakao } = window;
-
-// const Map = () => {
-
-//     useEffect(() => {
-//         const container = document.getElementById('myMap');
-// 		const options = {
-// 			center: new kakao.maps.LatLng(37.55036,126.92544),
-// 			level: 3
-// 		};
-//         const map = new kakao.maps.Map(container, options);
-//     }, []);
-
-//     return (
-//         <div id='myMap' style={{
-//             width: '100vw',
-//             height: '100vh'
-//         }}></div>
-//     );
-// }
-
-// export default Map;
-
-// ======== 2022-08-09
-
 /* global kakao */
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -34,11 +6,18 @@ import ListAPI from "../API/ListAPI";
 const { kakao } = window;
 const Map = () => {
   const location = useLocation();
-  let storeList = JSON.parse(sessionStorage.getItem('result'));
-  let result = location.state.resultnum + 1111;
-  result = result.split(); 
-  console.log(result);
+  let storeList = JSON.parse(sessionStorage.getItem('result')); 
+  // let result = location.state.resultnum + 1111;
+  // result = result.split(); 
+  // console.log(result); 
   let makers = [];
+
+  const editorHandler = (e) => {
+    let id = e.target.id;
+    // result[id] = !result[id];
+    // document.getElementById(id).classList.toggle("clicked");
+    // console.log('handler clicked, ', result);
+  }
 
   // 지도를 생성합니다
   useEffect(() => {
@@ -82,19 +61,19 @@ const Map = () => {
         <div className="sectionFirst">
           <p>원하는 에디터를 선택해주세요</p>
           <div className="cardsSection">
-            <div className="card">송</div>
-            <div className="card">큐</div>
-            <div className="card">란</div>
-            <div className="card">표</div>
+            <button onClick={editorHandler} className="card" id="0">송</button>
+            <button onClick={editorHandler} className="card" id="1">큐</button>
+            <button onClick={editorHandler} className="card" id="2">란</button>
+            <button onClick={editorHandler} className="card" id="3">표</button>
           </div>
         </div>
         <div className="sectionSecond">
           <p>원하는 음식 종류를 선택해주세요</p>
           <div className="cardsSection">
-            <div className="card">한식</div>
-            <div className="card">일식</div>
-            <div className="card">양식</div>
-            <div className="card">중식</div>
+            <button onClick={editorHandler} className="card" id="4">한식</button>
+            <button onClick={editorHandler} className="card" id="5">일식</button>
+            <button onClick={editorHandler} className="card" id="6">양식</button>
+            <button onClick={editorHandler} className="card" id="7">중식</button>
           </div>
         </div>
         <div className="sectionThird">
@@ -121,7 +100,7 @@ const Map = () => {
         id="map"
         style={{
           width: "100vw",
-          height: "calc(100vh - 56px)",
+          height: "calc(100vh - 48px)",
         }}
       ></div>
     </div>

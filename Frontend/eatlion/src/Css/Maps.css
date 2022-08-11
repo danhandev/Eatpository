@@ -123,20 +123,24 @@ p {
 }
 
 .cardsSection {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 0.5rem;
     column-gap: 0.5rem;
 }
 
-.card {
-    min-width: 124px;
-    color: white;
+.card { 
     padding: 0.8rem;
     border-radius: 8px;
-    background-color: #0D6EFD;
+    background-color: #E9ECEF;
+    color: #6C757D;
 }
 
+.clicked{
+    background-color: #0D6EFD;
+    color: white;
+}
 
 .randomButton {
     width: 100%;
