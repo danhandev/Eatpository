@@ -65,8 +65,7 @@ const Map = () => {
     }
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 
-    console.log(storeList);
-    console.log(storeList[0]);
+  
     for (var i=0;i<storeList.length;i++){
       var markerpos = new kakao.maps.LatLng(storeList[i].latitude, storeList[i].longitude);
       var marker = new kakao.maps.Marker({
@@ -91,7 +90,7 @@ const Map = () => {
     //     image : markerImage // 마커 이미지 
     // });
     }
-  }, [storeList]);
+  }, [result,storeList]);
 
 
 
