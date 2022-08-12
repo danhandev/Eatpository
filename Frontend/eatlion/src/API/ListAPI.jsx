@@ -8,7 +8,7 @@ const ListAPI = async (resultnum, categorynum) => {
     .get(
       "http://localhost:8000/stores/selected/",
       {
-        params: { editor: resultnum, category: parseInt(categorynum) },
+        params: { editor: resultnum, category: categorynum },
       },
       {
         withCredentials: true,

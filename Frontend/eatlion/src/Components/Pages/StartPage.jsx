@@ -46,9 +46,11 @@ function StartPage() {
     result[2] += Number(thirdButton);
     result[3] += Number(fourthButton);
     resultnum = result.join("");
+    categorynum=Number(categorynum);
     ListAPI(resultnum,categorynum).then((response)=>{
       //navigate('/main',{state:{response}});
       sessionStorage.setItem('listkey',JSON.stringify(resultnum)); 
+      sessionStorage.setItem('categorykey',JSON.stringify(categorynum)); 
       navigate('/main',{state:{response}});
 
     });
