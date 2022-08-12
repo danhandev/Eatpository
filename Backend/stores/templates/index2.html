@@ -1,3 +1,4 @@
+
 검색된 식당 이름 : {{info.store_name}} <br>
 검색된 식당의 주소 : {{info.address}} <br><br>
 
@@ -5,7 +6,7 @@
 
 <form method = "POST" action = "http://127.0.0.1:8000/stores/save/">
     {% csrf_token %}
-    <h1 >밑에꺼 건드리지 마 <h1/>
+    <h1>밑에거 건드리면 안됑!!!!!!!</h1>
     <textarea name="info">{{info}}</textarea> 
     <!-- <input type="text" value = {{info.store_name}} name="store_name">
     <input type="text" value = {{info.address}} name="address">
@@ -15,8 +16,18 @@
     <br><br>넣아줘야 함<br>
     <input type="text" value = "영업 시간" name="time">
     <input type="text" value = "메뉴" name="main_menu">
-    <input type="text" value = "에디터" name="user">
-    <input type="text" value = "카테고리" name="category">
+    <select name="user">
+        <option value="admin1">admin1</option>
+        <option value="admin2">admin2</option>
+        <option value="admin3">admin3</option>
+        <option value="admin4">admin4</option>
+    </select>
+    <select name="category">
+        <option value="한식">한식</option>
+        <option value="중식">중식</option>
+        <option value="일식">일식</option>
+        <option value="양식">양식</option>
+    </select>
     <!-- <input type="file" value = "이미지1" name="image1">
     <input type="file" value = "이미지2" name="image2"> -->
     <br><br>
@@ -33,4 +44,4 @@
     <input type="file" value = "이미지2" name="image2"> -->
     <br><br>
     <input type="submit" value = "검색!">
-</form> 
+</form>
