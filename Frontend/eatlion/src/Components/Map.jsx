@@ -31,8 +31,10 @@ const Map = () => {
   
   console.log(result)
   let makers = [];
-
+  
+  const [check,setCheck]=useState(true);
   const editorHandler = (e) => {
+    setCheck(!check);
     let id = e.target.id;
     (result[id]) = (!result[id])*1;
     console.log(result[id])
@@ -47,6 +49,7 @@ const Map = () => {
       sessionStorage.setItem('categorykey',JSON.stringify(categorynum)); 
     })
   }
+
 
   // 지도를 생성합니다
   useEffect(() => {
@@ -90,7 +93,7 @@ const Map = () => {
     //     image : markerImage // 마커 이미지 
     // });
     }
-  }, [result,storeList]);
+  }, [check]);
 
 
 
