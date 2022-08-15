@@ -2,56 +2,65 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../Css/Maps.css";
+
 import ListAPI from "../API/ListAPI";
-import { useState } from 'react';
+import { useState } from "react";
 import axios from "axios";
 const { kakao } = window;
 const Map = () => {
-  const location = useLocation();
-  const [Editorlist,setEditorList]=useState(1111);
-  let storeList = JSON.parse(sessionStorage.getItem('result')); 
-  let editorlist = JSON.parse(sessionStorage.getItem('listkey')); 
-  let categoryList= JSON.parse(sessionStorage.getItem('categorykey')); 
-  let result=editorlist+categoryList;
-  result=[...result]
- result[0]=Number(result[0]);
- result[1]=Number(result[1]);
- result[2]=Number(result[2]);
- result[3]=Number(result[3]);
- result[4]=Number(result[4]);
- result[5]=Number(result[5]);
- result[6]=Number(result[6]);
- result[7]=Number(result[7]);
+  const [check, setCheck] = useState(true);
 
-  // let result=[0,0,0,0,1,1,1,1,]
-  // result[0]=(editorlist[0]);
-  // result[1]=(editorlist[1]);
-  // result[2]=(editorlist[2]);
-  // result[3]=(editorlist[3]);
-  
-  console.log(result)
-  let makers = [];
-  
-  const [check,setCheck]=useState(true);
+  const[storeList,setStorelist] =useState( JSON.parse(sessionStorage.getItem("result")));
+  const [editorList,setEditorlist]=useState(JSON.parse(sessionStorage.getItem("listkey")));
+  const [categoryList,setCategorylist] = useState(JSON.parse(sessionStorage.getItem("categorykey")));
+
+  const [result,setResult] =useState((editorList+categoryList).split('').map(Number));
+
+ 
+  // 첫 스위치 초기화
+  useEffect(() => {
+    for (let i = 0; i < 8; i++) {
+      if (result[i] === 1) {
+        document.getElementById(i).classList.toggle("clicked");
+      }
+    }
+
+  }, []);
+
+  // editor 혹은 category 클릭 시 result 변화
   const editorHandler = (e) => {
-    setCheck(!check);
+  
     let id = e.target.id;
-    (result[id]) = (!result[id])*1;
-    console.log(result[id])
+    
+    result[id]=!result[id]*1
+  
     document.getElementById(id).classList.toggle("clicked");
-    console.log('handler clicked, ', result);
-    let editornum=result.slice(0,4);
-    editornum=editornum.join('');
-    let categorynum=result.slice(4,8);
-    categorynum=categorynum.join('');
-    ListAPI(editornum,categorynum).then((response)=>{
-      sessionStorage.setItem('listkey',JSON.stringify(editornum)); 
-      sessionStorage.setItem('categorykey',JSON.stringify(categorynum)); 
-    })
-  }
+  
+    let editornum = result.slice(0, 4);
+    
+    editornum = editornum.join("");
+    let categorynum = result.slice(4,8).join("");
+  
+    ListAPI(editornum, categorynum).then((response) => {
+      sessionStorage.setItem("listkey", JSON.stringify(editornum));
+      sessionStorage.setItem("categorykey", JSON.stringify(categorynum));
+      setStorelist(JSON.parse(sessionStorage.getItem("result")));
+    });
+    
+  };
 
-
-  // 지도를 생성합니다
+  const number = storeList.length;
+  const listitems = storeList.map((store) => {
+    return (
+      <div className="lists" key={store.id}>
+        <div className="store_name">{store.store_name} </div>
+        <div className="main_menu">{store.main_menu}</div>
+      </div>
+    );
+  });
+ 
+  //console.log(storeList);
+  // 지도와 마커를 생성합니다
   useEffect(() => {
     const container = document.getElementById("map");
     const options = {
@@ -59,61 +68,101 @@ const Map = () => {
       level: 3,
     };
     const map = new kakao.maps.Map(container, options);
-    const center = map.getCenter();
-    for(let i=0;i<8;i++){
-      if (result[i]===1){
-        document.getElementById(i).classList.toggle("clicked");
 
+    const imageSrc = [
+        "https://t1.daumcdn.net/cfile/blog/99B4DF445EAC451602",
+        //"http://localhost:8000/static/images/mini1.png",
+        //"https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
+      ],
+      imageSize = [
+        new kakao.maps.Size(48, 52),
+        new kakao.maps.Size(24, 35),
+        new kakao.maps.Size(48, 52),
+        new kakao.maps.Size(48, 52),
+      ],
+      imageOption = { offset: new kakao.maps.Point(10, 48) };
+
+    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+    
+    for (var i = 0; i < storeList.length; i++) {
+      var storeName = storeList[i].store_name;
+      var markerpos = new kakao.maps.LatLng(
+        storeList[i].latitude,
+        storeList[i].longitude
+      );
+
+      if (storeList[i].user == 2) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageSrc[0],
+          imageSize[0],
+          imageOption
+        );
+      } else if (storeList[i].user == 3) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageSrc[1],
+          imageSize[1],
+          imageOption
+        );
+      } else if (storeList[i].user == 4) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageSrc[2],
+          imageSize[2],
+          imageOption
+        );
+      } else if (storeList[i].user == 5) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageSrc[3],
+          imageSize[3],
+          imageOption
+        );
       }
-    }
-    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 
-  
-    for (var i=0;i<storeList.length;i++){
-      var markerpos = new kakao.maps.LatLng(storeList[i].latitude, storeList[i].longitude);
       var marker = new kakao.maps.Marker({
-        position : markerpos
+        map: map,
+        position: markerpos,
+        image: markerImage,
       });
 
       marker.setMap(map);
 
-    // // 마커 이미지의 이미지 크기 입니다
-    // var imageSize = new kakao.maps.Size(24, 35); 
-    
-    // // 마커 이미지를 생성합니다    
-    // var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
-    // 마커를 생성합니다
+      var content =
+        '<div class="customoverlay">' +
+        '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+        "  <span> " +
+        storeName +
+        " </span>" +
+        "  </a>" +
+        "</div>";
 
-    // var marker = new kakao.maps.Marker({
-    //     map: map, // 마커를 표시할 지도
-    //     latlong : new kakao.maps.LatLng(storeList.store.latitude, storeList.store.longitude),
-    //     position: storeList.store[i].latlong, // 마커를 표시할 위치
-    //     title : storeList.store[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-    //     image : markerImage // 마커 이미지 
-    // });
+      var infowindow = new kakao.maps.CustomOverlay({
+        map: map,
+        content: content,
+        position: marker.getPosition(),
+      });
+
+      // 마커에 마우스오버 이벤트를 등록합니다
+      kakao.maps.event.addListener(marker, "mouseover", function () {
+        // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+        infowindow.setMap(map);
+      });
+
+      // 마커에 마우스아웃 이벤트를 등록합니다
+      kakao.maps.event.addListener(marker, "mouseClick", function () {
+        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+        infowindow.setMap(null);
+      });
+
     }
-  }, [check]);
-
-
-
-
-  const listitems = storeList.map((store, idx) => {
-   
-
-    //console.log("store :", store);
-    return (
-      <div className="lists" key={store.id}>
     
-        <div className="store_name">{store.store_name} </div>
-        <div className="main_menu">{store.main_menu}</div>
-      </div>
-    );
-  }); 
+  
+  }, [storeList]);
 
+  // 리스트를 생성합니다
 
-  const setList = () => {};
-  const number = storeList.length;
 
   return (
     <div>
@@ -121,19 +170,35 @@ const Map = () => {
         <div className="sectionFirst">
           <p>원하는 에디터를 선택해주세요</p>
           <div className="cardsSection">
-            <button onClick={editorHandler} className="card" id="0">송</button>
-            <button onClick={editorHandler} className="card" id="1">큐</button>
-            <button onClick={editorHandler} className="card" id="2">란</button>
-            <button onClick={editorHandler} className="card" id="3">표</button>
+            <button onClick={editorHandler} className="card" id="0">
+              송
+            </button>
+            <button onClick={editorHandler} className="card" id="1">
+              큐
+            </button>
+            <button onClick={editorHandler} className="card" id="2">
+              란
+            </button>
+            <button onClick={editorHandler} className="card" id="3">
+              표
+            </button>
           </div>
         </div>
         <div className="sectionSecond">
           <p>원하는 음식 종류를 선택해주세요</p>
           <div className="cardsSection">
-            <button onClick={editorHandler} className="card" id="4">한식</button>
-            <button onClick={editorHandler} className="card" id="5">중식</button>
-            <button onClick={editorHandler} className="card" id="6">일식</button>
-            <button onClick={editorHandler} className="card" id="7">양식</button>
+            <button onClick={editorHandler} className="card" id="4">
+              한식
+            </button>
+            <button onClick={editorHandler} className="card" id="5">
+              중식
+            </button>
+            <button onClick={editorHandler} className="card" id="6">
+              일식
+            </button>
+            <button onClick={editorHandler} className="card" id="7">
+              양식
+            </button>
           </div>
         </div>
         <div className="sectionThird">
@@ -151,7 +216,7 @@ const Map = () => {
           </div>
         </div>
         <div className="sectionForth">
-          <button onClick={setList} className="randomButton">
+          <button className="randomButton">
             랜덤으로 맛집을 추천받아볼까요?
           </button>
         </div>
@@ -168,3 +233,4 @@ const Map = () => {
 };
 
 export default Map;
+

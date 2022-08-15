@@ -18,7 +18,7 @@ const ListAPI = async (resultnum, categorynum) => {
       store = response.data.stores;
       //브라우저DB에 반환하는 response를 저장해뒀다가 main으로 돌아올때 결과를 유지합니다.
       sessionStorage.setItem('result',JSON.stringify(store)); 
-    })
+      })
     .catch(function (error) {
       console.error(error);
     });
