@@ -1,5 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import "../../Css/Start.css";
 import editor1 from "../../Img/editor1.png";
 import editor2 from "../../Img/editor2.png";
@@ -39,16 +45,19 @@ function StartPage() {
 
   //0000에 대한 코드 수정, 에디터 선택 안해도 넘어가게?
   const handleSubmit = async (resultnum, categorynum) => {
-    let store = "";
     let result = [0, 0, 0, 0];
-    categorynum ='1111';
+    categorynum = "1111";
     result[0] += Number(firstButton);
     result[1] += Number(secondButton);
     result[2] += Number(thirdButton);
     result[3] += Number(fourthButton);
     resultnum = result.join("");
-    ListAPI(resultnum,categorynum).then((response)=>{
-      navigate('/main',{state:{response}});
+    categorynum = Number(categorynum);
+    ListAPI(resultnum, categorynum).then((response) => {
+      //navigate('/main',{state:{response}});
+      sessionStorage.setItem("listkey", JSON.stringify(resultnum));
+      sessionStorage.setItem("categorykey", JSON.stringify(categorynum));
+      navigate("/main", { state: { response } });
     });
   };
   //   await axios
@@ -86,16 +95,29 @@ function StartPage() {
       <h1>👇원하는 에디터를 선택해주세요!👇</h1>
       <div className="btnSection">
         <button onClick={FirstHandler} className="editor" id="1">
-          홍대생이지만홍대맛집몰라
+        
+            '송'의
+            <br />
+            혼밥 맛집
+      
         </button>
         <button onClick={SecondHandler} className="editor" id="2">
-          디저트만먹어
+      
+            '큐'의 <br />
+            회식 맛집
+       
         </button>
         <button onClick={ThirdHandler} className="editor" id="3">
-          정예민초단
+         
+            '란'의
+            <br /> 데이트 맛집
+       
         </button>
         <button onClick={FourthHandler} className="editor" id="4">
-          인스타10K맛집러
+        
+            '표'의 <br />
+            포장 맛집
+         
         </button>
         {/* <button onClick={handleEditor_5} className="editor 5">
           국밥든든해

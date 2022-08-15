@@ -10,8 +10,10 @@ import MainPage from "./Components/Pages/MainPage";
 
 const Router = ({ token, setToken }) => {
   // const [token,setToken]=useState('');
-  let storeList = JSON.parse(sessionStorage.getItem("result"));
+  let storeList = JSON.parse(sessionStorage.getItem('result'));
+
   return (
+   
     // storeList를 가진 경우, 멋사먹자 로고 클릭 시 start화면이 아닌 main으로 넘어가게 하였음
     <Routes>
       {storeList !== null && (

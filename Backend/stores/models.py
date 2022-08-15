@@ -11,14 +11,12 @@ class Stores(models.Model):
     longitude = models.FloatField(null=True, blank=True)  # 경도
     latitude = models.FloatField(null=True, blank=True)  # 위도
     time = models.CharField(max_length=200, null=True)
-    phone_number = models.CharField(max_length=50, null=True)
     image = models.ImageField(max_length=100, null=True, blank=True)
     user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
     category = models.CharField(max_length=10, null=False)
 
     def __str__(self):
         return str(self.id)
-
 
 class Recommends(models.Model):
     user = models.ForeignKey(

@@ -1,19 +1,18 @@
+import json
+from .secrets import KAKAO_API_KEY
+import requests
+from asyncio.windows_events import NULL
+from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.shortcuts import render, redirect
+from accounts.models import Users
+from .models import Stores
+from stores.serializers import StoreSerializer, StoreRandomSerializer, Stores_Information
 import random
 from django.shortcuts import render
-from stores.serializers import StoreSerializer, StoreRandomSerializer, Stores_Information
-from .models import Stores
-from accounts.models import Users
-from django.shortcuts import render, redirect
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework import status
-from django.http import JsonResponse
-from asyncio.windows_events import NULL
-import requests
-from .secrets import KAKAO_API_KEY
-import json
-# Create your views here.
 
 
 @api_view(['GET'])
@@ -120,8 +119,6 @@ def save(request):
     )
     return redirect('edit')
 
-    # 가게정보
-
 
 @api_view(['GET'])
 def stores_information(request, store_id):
@@ -130,6 +127,5 @@ def stores_information(request, store_id):
             store = Stores.objects.get(id=store_id)
             store = Stores_Information(store)
             return Response({"store_information": store.data})
-        except Exception as e:
-            print(e)
+        except:
             return Response({"message": "error"})
