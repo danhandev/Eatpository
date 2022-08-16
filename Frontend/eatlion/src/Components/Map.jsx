@@ -53,7 +53,7 @@ const Map = () => {
   const listitems = storeList.map((store) => {
     return (
       <div className="lists" key={store.id}>
-        <div className="store_name">{store.store_name} </div>
+        <button className="store_name">{store.store_name} </button>
         <div className="main_menu">{store.main_menu}</div>
       </div>
     );
@@ -70,12 +70,11 @@ const Map = () => {
     const map = new kakao.maps.Map(container, options);
 
     const imageSrc = [
-        "https://t1.daumcdn.net/cfile/blog/99B4DF445EAC451602",
-        //"http://localhost:8000/static/images/mini1.png",
-        //"https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
+      process.env.PUBLIC_URL + `/assets/mini1.png`,
+      process.env.PUBLIC_URL + `/assets/mini2.png`,
+      process.env.PUBLIC_URL + `/assets/mini3.png`,
+      process.env.PUBLIC_URL + `/assets/mini4.png`,
+      process.env.PUBLIC_URL + `/assets/mini5.png`,
       ],
       imageSize = [
         new kakao.maps.Size(48, 52),
