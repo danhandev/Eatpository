@@ -6,17 +6,28 @@ import "../Css/Maps.css";
 import ListAPI from "../API/ListAPI";
 import { useState } from "react";
 import axios from "axios";
+import DetailAPI from './../API/DetailAPI';
 const { kakao } = window;
 const Map = () => {
-  const [check, setCheck] = useState(true);
 
   const[storeList,setStorelist] =useState( JSON.parse(sessionStorage.getItem("result")));
   const [editorList,setEditorlist]=useState(JSON.parse(sessionStorage.getItem("listkey")));
   const [categoryList,setCategorylist] = useState(JSON.parse(sessionStorage.getItem("categorykey")));
+  const[storeName,setStoreName] =useState( JSON.parse(sessionStorage.getItem("resultName")));
 
   const [result,setResult] =useState((editorList+categoryList).split('').map(Number));
-
- 
+console.log(storeName.id);
+  const getDetails=(id)=>{
+    DetailAPI(id).then((response)=>{
+      console.log(response)
+      console.log(response.store_information.id);
+      return (
+        <div  key={response.store_information.id}>
+          {/* <div className="store_name">{store.store_name} </button>
+          <div className="main_menu">{store.main_menu}</div> */}
+        </div>
+      
+     )})};
   // 첫 스위치 초기화
   useEffect(() => {
     for (let i = 0; i < 8; i++) {
@@ -24,7 +35,6 @@ const Map = () => {
         document.getElementById(i).classList.toggle("clicked");
       }
     }
-
   }, []);
 
   // editor 혹은 category 클릭 시 result 변화
@@ -76,12 +86,9 @@ const Map = () => {
       process.env.PUBLIC_URL + `/assets/mini4.png`,
       process.env.PUBLIC_URL + `/assets/mini5.png`,
       ],
-      imageSize = [
-        new kakao.maps.Size(48, 52),
-        new kakao.maps.Size(24, 35),
-        new kakao.maps.Size(48, 52),
-        new kakao.maps.Size(48, 52),
-      ],
+      imageSize = 
+        new kakao.maps.Size(48, 48)
+      ,
       imageOption = { offset: new kakao.maps.Point(10, 48) };
 
     // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -89,6 +96,10 @@ const Map = () => {
     
     for (var i = 0; i < storeList.length; i++) {
       var storeName = storeList[i].store_name;
+      var category = storeList[i].category;
+      var address = storeList[i].address;
+      var storeId = storeList[i].id;
+      let res = getDetails(storeId);
       var markerpos = new kakao.maps.LatLng(
         storeList[i].latitude,
         storeList[i].longitude
@@ -97,25 +108,25 @@ const Map = () => {
       if (storeList[i].user == 2) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[0],
-          imageSize[0],
+          imageSize,
           imageOption
         );
       } else if (storeList[i].user == 3) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[1],
-          imageSize[1],
+          imageSize,
           imageOption
         );
       } else if (storeList[i].user == 4) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[2],
-          imageSize[2],
+          imageSize,
           imageOption
         );
       } else if (storeList[i].user == 5) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[3],
-          imageSize[3],
+          imageSize,
           imageOption
         );
       }
@@ -129,36 +140,54 @@ const Map = () => {
       marker.setMap(map);
 
       var content =
-        '<div class="customoverlay">' +
-        '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
-        "  <span> " +
-        storeName +
-        " </span>" +
-        "  </a>" +
-        "</div>";
+      '<div class="infoWindow">' +
+      ' <div class="title">' +
+      '  <div class="storeName"> ' +
+      storeName +
+      " </div>" +
+      '  <div class="categoryText"> ' +
+      category +
+      " </div>" +
+      "</div>" +
+      '  <div class="addressText"> ' +
+      address +
+      " </div>" +
+      "<button onClick={getDetails(" +
+      storeId +
+      ")}" +
+      ' class="more">' +
+      "자세히 보기" +
+      "</button>" +
+      "</div>";
+
 
       var infowindow = new kakao.maps.CustomOverlay({
-        map: map,
         content: content,
         position: marker.getPosition(),
       });
 
-      // 마커에 마우스오버 이벤트를 등록합니다
-      kakao.maps.event.addListener(marker, "mouseover", function () {
-        // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-        infowindow.setMap(map);
-      });
+      
+      (function (marker, infowindow) {
+        // 마커에 마우스 이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, "click", function getDetails() {
+          })        
+        kakao.maps.event.addListener(marker, "click", function () {
+          // 마커에 마우스 클릭 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+          infowindow.setMap(map, marker);
+          map.setCenter(marker.getPosition());
+        });
 
       // 마커에 마우스아웃 이벤트를 등록합니다
-      kakao.maps.event.addListener(marker, "mouseClick", function () {
-        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-        infowindow.setMap(null);
-      });
-
-    }
+    kakao.maps.event.addListener(map, "click", function () {
+      // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+      infowindow.setMap(null);
+      
     
-  
-  }, [storeList]);
+    });
+  })(marker, infowindow);
+}
+}, [storeList]);
+
 
   // 리스트를 생성합니다
 
