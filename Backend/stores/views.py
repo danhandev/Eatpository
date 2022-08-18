@@ -175,9 +175,10 @@ def save(request):
 
 
 @api_view(['GET'])
-def stores_information(request, store_id):
+def stores_information(request):
     if request.method == "GET":
         try:
+            store_id = request.GET.get('store_id')
             store = Stores.objects.get(id=store_id)
             store_info = Stores_Information(store)
             images = Images.objects.get(store=store)

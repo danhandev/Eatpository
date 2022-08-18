@@ -5,24 +5,27 @@ import axios from "axios";
 // userid, password 입력 받으면 token 값 return
 // error 시, token = '', 성공 시, token = 'Token 값'
 const DetailAPI = async (id) => {
-  let storeName = "";
+  let storeDetail = null;
   await axios
     .get(
-      "http://localhost:8000/stores/" + id,
+      'http://localhost:8000/stores/store-info',
+  
       {
-        params: { id: id },
+        params:{store_id:id},
       },
       {
         withCredentials: true,
       }
     )
     .then((response) => {
-      storeName = response.data;
-      sessionStorage.setItem('resultName',JSON.stringify(storeName))
+      
+      storeDetail = response.data.store_information;
+      sessionStorage.setItem("detail",JSON.stringify(storeDetail));
     })
     .catch(function (error) {
       console.error(error);
     });
-  return storeName;
+  return storeDetail;
+  
 };
 export default DetailAPI;

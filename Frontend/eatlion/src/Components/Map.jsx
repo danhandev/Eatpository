@@ -1,4 +1,4 @@
-/* global kakao */
+//* global kakao */
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../Css/Maps.css";
@@ -6,28 +6,32 @@ import "../Css/Maps.css";
 import ListAPI from "../API/ListAPI";
 import { useState } from "react";
 import axios from "axios";
-import DetailAPI from './../API/DetailAPI';
+import DetailAPI from "./../API/DetailAPI";
 const { kakao } = window;
 const Map = () => {
 
-  const[storeList,setStorelist] =useState( JSON.parse(sessionStorage.getItem("result")));
-  const [editorList,setEditorlist]=useState(JSON.parse(sessionStorage.getItem("listkey")));
-  const [categoryList,setCategorylist] = useState(JSON.parse(sessionStorage.getItem("categorykey")));
-  const[storeName,setStoreName] =useState( JSON.parse(sessionStorage.getItem("resultName")));
+  const [Name, setName ]= useState(); 
+  const[Menu,setMenu]=useState();
+  const[Address,setAddress]=useState();
+  const[Time,setTime]=useState('');
+  const[Res,setRes]=useState("");
 
-  const [result,setResult] =useState((editorList+categoryList).split('').map(Number));
-console.log(storeName.id);
-  const getDetails=(id)=>{
-    DetailAPI(id).then((response)=>{
-      console.log(response)
-      console.log(response.store_information.id);
-      return (
-        <div  key={response.store_information.id}>
-          {/* <div className="store_name">{store.store_name} </button>
-          <div className="main_menu">{store.main_menu}</div> */}
-        </div>
-      
-     )})};
+  const [storeList, setStorelist] = useState(
+    JSON.parse(sessionStorage.getItem("result"))
+  );
+  const [editorList, setEditorlist] = useState(
+    JSON.parse(sessionStorage.getItem("listkey"))
+  );
+  const [categoryList, setCategorylist] = useState(
+    JSON.parse(sessionStorage.getItem("categorykey"))
+  );
+  const[detail,setDetail]=useState(
+    JSON.parse(sessionStorage.getItem("detail"))
+  );
+  const [result, setResult] = useState(
+    (editorList + categoryList).split("").map(Number)
+  );
+  
   // 첫 스위치 초기화
   useEffect(() => {
     for (let i = 0; i < 8; i++) {
@@ -36,29 +40,31 @@ console.log(storeName.id);
       }
     }
   }, []);
-
+  
+  
+  
   // editor 혹은 category 클릭 시 result 변화
   const editorHandler = (e) => {
-  
     let id = e.target.id;
-    
-    result[id]=!result[id]*1
-  
+
+    result[id] = !result[id] * 1;
+
     document.getElementById(id).classList.toggle("clicked");
-  
+
     let editornum = result.slice(0, 4);
-    
+
     editornum = editornum.join("");
-    let categorynum = result.slice(4,8).join("");
-  
+    let categorynum = result.slice(4, 8).join("");
+
     ListAPI(editornum, categorynum).then((response) => {
       sessionStorage.setItem("listkey", JSON.stringify(editornum));
       sessionStorage.setItem("categorykey", JSON.stringify(categorynum));
       setStorelist(JSON.parse(sessionStorage.getItem("result")));
     });
-    
   };
+  
 
+  
   const number = storeList.length;
   const listitems = storeList.map((store) => {
     return (
@@ -68,7 +74,6 @@ console.log(storeName.id);
       </div>
     );
   });
- 
   //console.log(storeList);
   // 지도와 마커를 생성합니다
   useEffect(() => {
@@ -78,28 +83,40 @@ console.log(storeName.id);
       level: 3,
     };
     const map = new kakao.maps.Map(container, options);
-
+    
     const imageSrc = [
       process.env.PUBLIC_URL + `/assets/mini1.png`,
       process.env.PUBLIC_URL + `/assets/mini2.png`,
       process.env.PUBLIC_URL + `/assets/mini3.png`,
       process.env.PUBLIC_URL + `/assets/mini4.png`,
       process.env.PUBLIC_URL + `/assets/mini5.png`,
-      ],
-      imageSize = 
-        new kakao.maps.Size(48, 48)
-      ,
-      imageOption = { offset: new kakao.maps.Point(10, 48) };
-
-    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
+    ],
+    imageSize = new kakao.maps.Size(48, 48),
+    imageOption = { offset: new kakao.maps.Point(10, 48) };
     
+    var content =
+    '<div class="infoWindow">' +
+    ' <div class="title">' +
+    '  <div class="storeName"> ' +
+    detail.store_name +
+    " </div>" +
+    '  <div class="categoryText"> ' +
+    detail.main_menu +
+    " </div>" +
+    "</div>" +
+    '  <div class="addressText"> ' +
+    detail.address +
+    " </div>" +
+    "<button"+
+    ' class="more">' +
+    "자세히 보기" +
+    "</button>" +
+    "</div>";
+  
+  // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  
     for (var i = 0; i < storeList.length; i++) {
-      var storeName = storeList[i].store_name;
-      var category = storeList[i].category;
-      var address = storeList[i].address;
       var storeId = storeList[i].id;
-      let res = getDetails(storeId);
       var markerpos = new kakao.maps.LatLng(
         storeList[i].latitude,
         storeList[i].longitude
@@ -135,62 +152,60 @@ console.log(storeName.id);
         map: map,
         position: markerpos,
         image: markerImage,
+        id: storeId,
       });
+      
+      marker.id = storeId;
+      //marker.setMap(map);
 
-      marker.setMap(map);
-
-      var content =
-      '<div class="infoWindow">' +
-      ' <div class="title">' +
-      '  <div class="storeName"> ' +
-      storeName +
-      " </div>" +
-      '  <div class="categoryText"> ' +
-      category +
-      " </div>" +
-      "</div>" +
-      '  <div class="addressText"> ' +
-      address +
-      " </div>" +
-      "<button onClick={getDetails(" +
-      storeId +
-      ")}" +
-      ' class="more">' +
-      "자세히 보기" +
-      "</button>" +
-      "</div>";
-
-
+      
+      // detail window를 위한 state
+      
+      
       var infowindow = new kakao.maps.CustomOverlay({
         content: content,
         position: marker.getPosition(),
+        id: storeId,
       });
-
+      
       
       (function (marker, infowindow) {
         // 마커에 마우스 이벤트를 등록합니다
-        kakao.maps.event.addListener(marker, "click", function getDetails() {
-          })        
         kakao.maps.event.addListener(marker, "click", function () {
           // 마커에 마우스 클릭 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-          infowindow.setMap(map, marker);
-          map.setCenter(marker.getPosition());
-        });
+          getDetail(marker.id);
 
-      // 마커에 마우스아웃 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, "click", function () {
-      // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-      infowindow.setMap(null);
-      
+          infowindow.setMap(map, marker);
+          //map.setCenter(marker.getPosition());
+        });
+        
+        // 마커에 마우스아웃 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, "click", function () {
+          // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+          infowindow.setMap();
+        });
+      })(marker, infowindow);
+    }
+  }, [detail.store_name,storeList]);
+  
+  function getDetail (id) {
+    DetailAPI(id).then((response) => {
+      setDetail(JSON.parse(sessionStorage.getItem("detail")));
+
+      // setMenu(menu);
+      // setAddress(address);
+      // setTime(time);
     
+      
+      
     });
-  })(marker, infowindow);
-}
-}, [storeList]);
+    
+  }
+  console.log(detail.store_name);
+ 
 
 
   // 리스트를 생성합니다
-
 
   return (
     <div>
@@ -261,4 +276,3 @@ console.log(storeName.id);
 };
 
 export default Map;
-
