@@ -9,12 +9,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-from datetime import datetime
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
-from .secrets import *
+import datetime
+from .secrets import MY_SECRET_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -67,12 +67,19 @@ AUTH_USER_MODEL = 'accounts.User'
 # DRF auth settings - Token으로 User 찾아오기
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ]
 }
 
-JWT_SECRET_KEY = MY_SECRET_KEY
-JWT_ALGORITHM = 'HS256'
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=30),
+    'SIGNING_KEY': SECRET_KEY,
+    'ALGORITHM': 'HS256',
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
 
 
 MIDDLEWARE = [

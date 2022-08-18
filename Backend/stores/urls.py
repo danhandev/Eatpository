@@ -9,7 +9,7 @@ urlpatterns = [
     path('selected/', views.selected_stores, name="selected"),
     path('edit/', views.edit, name="edit"),
     path('save/', views.save, name="save"),
-    path('<int:store_id>/', views.stores_information, name=""),
+    path('store-info/', views.stores_information, name=""),
     # path('random/',views.random_store, name = "random"),
     #path('imformation/',views.stores_imformation, name = "stores_imformation"),
 ]
