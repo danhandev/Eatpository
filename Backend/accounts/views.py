@@ -12,13 +12,24 @@ from django.contrib.auth import login, logout
 from .models import Users
 from Eatpository import settings
 
+
 import random
 import string
 
 
 #from Eatpository.settings import JWT_ALGORITHM, JWT_SECRET_KEY
 # Create your views here.
-
+@api_view(['POST'])
+def loginCheck(request):
+   
+    access_token = request.META['HTTP_AUTHORIZATION']
+    print(access_token)
+    access_token = jwt.decode(access_token, key=SECRET_KEY, algorithm='HS256')
+    pk = access_token.get('user_id')
+    try:
+        user = get_object_or_404(Users, pk=pk)
+    except:
+        return Response({'message' : 'user does not exist'})
 
 @api_view(['POST'])
 def signup(request):
@@ -97,14 +108,13 @@ def user_login(request):
             token = RefreshToken.for_user(user)
             refresh_token = str(token)
             access_token = str(token.access_token)
-            response = JsonResponse({"message": "로그인 성공!"})
+            response = Response(
+                {"message": "로그인 성공!", "access_token": access_token, "refresh_token": refresh_token})
 
-            # res.set_cookie('access_token', access_token)
-            # res.set_cookie('refresh_token', refresh_token)
             #token = Token.objects.get_or_create(user=user)
 
             return response
-            
+
         else:
             return Response({"message": "not correct password"})
 # def user_login(request):
