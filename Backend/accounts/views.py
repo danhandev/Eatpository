@@ -21,15 +21,19 @@ import string
 # Create your views here.
 @api_view(['POST'])
 def loginCheck(request):
-   
+
     access_token = request.META['HTTP_AUTHORIZATION']
-    print(access_token)
+
+    access_token = access_token[7:]
     access_token = jwt.decode(access_token, key=SECRET_KEY, algorithm='HS256')
     pk = access_token.get('user_id')
     try:
         user = get_object_or_404(Users, pk=pk)
     except:
-        return Response({'message' : 'user does not exist'})
+        return Response({'message': 'user does not exist'})
+    if user is not None:
+        return Response({'message': 'success'})
+
 
 @api_view(['POST'])
 def signup(request):
