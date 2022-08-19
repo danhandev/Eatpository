@@ -117,7 +117,7 @@ def edit(request):
             os.mkdir(img_folder_path)
 
         # 노션에 있는 크롬 드라이버 설치 후 C 드라이브에 저장
-        driver = webdriver.Chrome(r"/usr/local/bin/chromedriver")
+        driver = webdriver.Chrome(r"C:\chromedriver.exe")
         driver.get("https://www.google.co.kr/imghp?hl=ko&ogbl")
 
         search = "홍대" + store
