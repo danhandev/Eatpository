@@ -82,54 +82,56 @@ function StartPage() {
   // };
 
   return (
-    <div className="start page">
-      <div className="titleWrap">
-        멋사먹자는 <br />
-        6명의 홍대생 에디터가 선정한 홍대 맛집을 소개하는 서비스 입니다.
-      </div>
-      <div className="subText">
-        홍대생 에디터가 선정한 맛집 리스트를 확인하고, 가고 싶은 식당을 선택해
-        보세요! <br />뭘 먹을지 못 정하겠다고요? 랜덤 추천 기능을 이용해보세요!
-        랜덤으로 식당 한 곳을 추천해드립니다!
-      </div>
-      <h1>👇원하는 에디터를 선택해주세요!👇</h1>
-      <div className="btnSection">
-        <button onClick={FirstHandler} className="editor" id="1">
-        
-            '송'의
-            <br />
-            혼밥 맛집
-      
-        </button>
-        <button onClick={SecondHandler} className="editor" id="2">
-      
-            '큐'의 <br />
-            회식 맛집
-       
-        </button>
-        <button onClick={ThirdHandler} className="editor" id="3">
-         
-            '란'의
-            <br /> 데이트 맛집
-       
-        </button>
-        <button onClick={FourthHandler} className="editor" id="4">
-        
-            '표'의 <br />
-            포장 맛집
-         
-        </button>
-        {/* <button onClick={handleEditor_5} className="editor 5">
+    <div className="back">
+      <div className="start page">
+        <div className="titleWrap">
+          멋사먹자는 4명의 홍대생 에디터가 <br />
+          선정한 홍대 맛집을 소개하는 서비스 입니다.
+        </div>
+        <div className="subText">
+          홍대생 에디터가 선정한 맛집 리스트를 확인하고, 가고 싶은 식당을 선택해
+          보세요! <br />뭘 먹을지 못 정하겠다고요? 랜덤 추천 기능을
+          이용해보세요! 랜덤으로 식당 한 곳을 추천해드립니다!
+        </div>
+        <h1>👇원하는 에디터를 선택해주세요!👇</h1>
+        <div className="btnSection">
+          <button onClick={FirstHandler} className="editor a" id="1">
+            <span>
+              '송'의
+              <br />
+              혼밥 맛집
+            </span>
+          </button>
+          <button onClick={SecondHandler} className="editor b" id="2">
+            <span>
+              '큐'의 <br />
+              회식 맛집
+            </span>
+          </button>
+          <button onClick={ThirdHandler} className="editor c" id="3">
+            <span>
+              '란'의
+              <br /> 데이트 맛집
+            </span>
+          </button>
+          <button onClick={FourthHandler} className="editor d" id="4">
+            <span>
+              '표'의 <br />
+              포장 맛집
+            </span>
+          </button>
+          {/* <button onClick={handleEditor_5} className="editor 5">
           국밥든든해
         </button>
         <button onClick={handleEditor_6} className="editor 6">
           양식중
         </button> */}
-      </div>
-      <div>
-        <button onClick={handleSubmit} className="submitButton">
-          에디터 선택 완료
-        </button>
+        </div>
+        <div>
+          <button onClick={handleSubmit} className="submitButton">
+            에디터 선택 완료
+          </button>
+        </div>
       </div>
     </div>
   );

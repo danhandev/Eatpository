@@ -56,7 +56,7 @@ const Map = () => {
   const listitems = storeList.map(store => {
     return (
       <div className="lists" key={store.id}>
-        <button className="store_name">{store.store_name} </button>
+        <div className="store_name">{store.store_name} </div>
         <div className="main_menu">{store.main_menu}</div>
       </div>
     );
@@ -233,19 +233,19 @@ const Map = () => {
                 " </div>" +
                 "</div>" +
                 '  <div class="addressText"> ' +
+                response.store_information.main_menu +
+                " </div>" +
+                '  <div class="addressText"> ' +
                 response.store_information.address +
                 " </div>" +
                 '  <div class="addressText"> ' +
                 response.store_information.admin_comment +
                 " </div>" +
                 '  <div class="addressText"> ' +
-                response.store_information.phone +
+                response.store_information.time +
                 " </div>" +
-                '<button id="more" onClick="detailHandler("'+
-                marker.id +
-                ')">'+
-                '자세히보기'+
-                '</button>'+
+               `<img src=${response.store_images.image1}>`+
+               '</img>'+
                 "</div>"
             );
             //버튼 액션 만들어주는 function

@@ -41,6 +41,7 @@ function LoginPage({token,setToken}) {
       }
     });
   };
+
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     if (token === "") {
