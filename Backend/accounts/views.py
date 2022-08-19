@@ -34,6 +34,8 @@ def loginCheck(request):
         return Response({'message': 'user does not exist'})
     if user is not None:
         return Response({'message': 'success'})
+    else:
+        return Response({'message': 'noAccess'})
 
 
 @api_view(['POST'])
@@ -49,7 +51,7 @@ def loginValidate(request):
         user = Users.objects.get(pk=pk)
         print(user)
     except:
-        return Response({'message': "loginAgin"})
+        return Response({'message': "loginAgain"})
 
     if user is not None:
         if user.refresh_token == refresh_token:
