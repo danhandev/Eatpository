@@ -48,7 +48,7 @@ console.log(access_token);
 if (1){
   axios({
     method: "post",
-    url: "http://127.0.0.1:8000/users/logincheck/",
+    url: "http://15.165.226.61:3000/users/logincheck/",
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
@@ -70,7 +70,7 @@ if (1){
         console.log(`refresh_token : ${refresh_token}`);
         axios({
           method: "post",
-          url: "http://127.0.0.1:8000/users/loginValidate/",
+          url: "http://15.165.226.61:3000/users/loginValidate/",
           headers: {
             Authorization: `Bearer ${refresh_token}`,
           },

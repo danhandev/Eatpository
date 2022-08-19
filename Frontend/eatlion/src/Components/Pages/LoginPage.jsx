@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogInAPI from "../../API/LoginAPI";
-
+import "../../Css/index.css";
 function LoginPage({token,setToken}) {
   
   const [userid, setUserid] = useState("");
