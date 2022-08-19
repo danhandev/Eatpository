@@ -243,8 +243,12 @@ const Map = () => {
                 '  <div class="addressText"> ' +
                 response.store_information.time +
                 " </div>" +
+                '<div class="imageSection">'+
                `<img src=${response.store_images.image1}>`+
+               '</img>'+ 
+               `<img src=${response.store_images.image2}>`+
                '</img>'+
+               '</div>'+
                 "</div>"
             );
             //버튼 액션 만들어주는 function

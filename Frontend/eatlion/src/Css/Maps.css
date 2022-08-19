@@ -219,6 +219,15 @@ p {
     color: #444444;
 }
 
+.imageSection{
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    height: 6rem;
+    object-fit: cover;
+}
+
+
 .addressText{
     width: inherit;
     white-space: normal;
