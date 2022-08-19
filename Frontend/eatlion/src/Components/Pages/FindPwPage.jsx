@@ -83,7 +83,7 @@ else {
 
     <div className="inputWrap">
         <input
-        type='text'
+        type='password'
         className="input" 
         placeholder=""
         value={NewPw} onChange={NewPwHandler}/>
