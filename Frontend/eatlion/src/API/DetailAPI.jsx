@@ -18,7 +18,6 @@ const DetailAPI = async (id) => {
       }
     )
     .then((response) => {
-      
       storeDetail = response.data;
       sessionStorage.setItem("detail",JSON.stringify(storeDetail));
     })

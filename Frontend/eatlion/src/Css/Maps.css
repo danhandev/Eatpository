@@ -203,7 +203,7 @@ p {
     color: #444444;
 }   
 
-button.more{
+button#more{
     width: 40%;
     padding: 0.6rem;
     border: solid 1px #0D6EFD;
@@ -215,7 +215,21 @@ button.more{
     transition:background-color 0.2s, transform 0.2s;
 }
 
-button.more:hover{
+button#more:hover{
     background-color: #0D6EFD;
     color: white;
+}
+
+.detailSection{
+    background-color: white;
+    position: absolute;
+    top:200px;
+    left:100px;
+
+    z-index: 10;
+}
+
+.overlay{
+    background-color: wheat;
+    padding:2rem;
 }

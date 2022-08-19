@@ -6,7 +6,7 @@ import ListAPI from "../API/ListAPI";
 import DetailAPI from "./../API/DetailAPI";
 const { kakao } = window;
 
-const Map = () => { 
+const Map = () => {
   const [storeList, setStorelist] = useState(
     JSON.parse(sessionStorage.getItem("result"))
   );
@@ -16,17 +16,16 @@ const Map = () => {
   const [categoryList, setCategorylist] = useState(
     JSON.parse(sessionStorage.getItem("categorykey"))
   );
-  const[detail,setDetail]=useState(
+  const [detail, setDetail] = useState(
     JSON.parse(sessionStorage.getItem("detail"))
   );
   const [result, setResult] = useState(
     (editorList + categoryList).split("").map(Number)
   );
-    const [storeDetail, setStore] = useState([]);
-    const [images, setImage] = useState('');
-    const [kakaoMap, setKakaoMap] = useState(null);
-    const container = useRef();
-
+  const [storeDetail, setStore] = useState([]);
+  const [images, setImage] = useState("");
+  const [kakaoMap, setKakaoMap] = useState(null);
+  const container = useRef();
 
   // 첫 스위치 초기화
   useEffect(() => {
@@ -36,13 +35,9 @@ const Map = () => {
       }
     }
   }, []);
-  
-  const moreDetail = () => {
-    console.log('click은 인식했음');
-  }
-  
+
   // editor 혹은 category 클릭 시 result 변화
-  const editorHandler = (e) => {
+  const editorHandler = e => {
     let id = e.target.id;
     result[id] = !result[id] * 1;
     document.getElementById(id).classList.toggle("clicked");
@@ -50,15 +45,15 @@ const Map = () => {
     editornum = editornum.join("");
     let categorynum = result.slice(4, 8).join("");
 
-    ListAPI(editornum, categorynum).then((response) => {
+    ListAPI(editornum, categorynum).then(response => {
       sessionStorage.setItem("listkey", JSON.stringify(editornum));
       sessionStorage.setItem("categorykey", JSON.stringify(categorynum));
       setStorelist(JSON.parse(sessionStorage.getItem("result")));
     });
   };
-  
+
   const number = storeList.length;
-  const listitems = storeList.map((store) => {
+  const listitems = storeList.map(store => {
     return (
       <div className="lists" key={store.id}>
         <button className="store_name">{store.store_name} </button>
@@ -66,6 +61,34 @@ const Map = () => {
       </div>
     );
   });
+
+  const detailHandler = e => {
+    document.getElementById('more').addEventListener('click', function(){
+      console.log('detail handler');
+      console.log('detail : ',detail);
+      console.log('store detail : ',storeDetail);
+      console.log('store images : ',images);
+      return( 
+        alert('여기다가 컴포넌트 렌더링하면 됨. 근데 외부 선언하면 state 어떻게 하더라?')
+      )
+    })
+  }
+
+  //  const Details = () => {
+  //   return (
+  //     <div className="detailWindow" key={store.store_information.id}>
+  //       <div className="store_name">{store.store_information.store_name} </div>
+  //       <div className="addressText">{store.store_information.address}</div>
+  //       <div className="time">{store.store_information.time}</div>
+  //       <div className="admin_comment">
+  //         {store.store_information.addmin_comment}
+  //       </div>
+  //       <div className="images">{store.store_images.image[1]}</div>
+  //       <div className="images">{store.store_images.image[2]}</div>
+  //       <div className="images">{store.store_images.image[3]}</div>
+  //     </div>
+  //   );
+  // };
 
   // store를 image가 포함된 객체로 받은다음 매핑으로 store_information에 접근
   // 접근한 store_information과 image를 각각 렌더링하고 카드 컴포넌트로 만들어냄
@@ -85,8 +108,8 @@ const Map = () => {
   //     </div>
   //   );
   // });
- 
-  // var content = 
+
+  // var content =
   //   '<div class="infoWindow">' +
   //   ' <div class="title">' +
   //   '  <div class="storeName"> ' +
@@ -110,7 +133,7 @@ const Map = () => {
     //const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(37.55036, 126.92544),
-      level: 3,
+      level: 3
     };
     const map = new kakao.maps.Map(container.current, options);
     setKakaoMap(map);
@@ -137,7 +160,7 @@ const Map = () => {
         process.env.PUBLIC_URL + `/assets/mini2.png`,
         process.env.PUBLIC_URL + `/assets/mini3.png`,
         process.env.PUBLIC_URL + `/assets/mini4.png`,
-        process.env.PUBLIC_URL + `/assets/mini5.png`,
+        process.env.PUBLIC_URL + `/assets/mini5.png`
       ],
       imageSize = new kakao.maps.Size(48, 48),
       imageOption = { offset: new kakao.maps.Point(10, 48) };
@@ -181,25 +204,24 @@ const Map = () => {
         map: kakaoMap,
         position: markerpos,
         image: markerImage,
-        id: storeId,
+        id: storeId
       });
 
       marker.id = storeId;
-      marker.setMap(kakaoMap);
-
-      // detail window를 위한 state
 
       var infowindow = new kakao.maps.CustomOverlay({
         position: marker.getPosition(),
+        clickable: true,
         id: marker.id,
-        //content: content,
+        //content: content
       });
-      (function (marker, infowindow) {
+      (function(marker, infowindow) {
         // 마커에 마우스 이벤트를 등록합니다
-        kakao.maps.event.addListener(marker, "click", function () {
+        kakao.maps.event.addListener(marker, "click", function() {
           DetailAPI(marker.id).then((response) => {  
             setStore(response.store_information);
-            setDetail(response.store_images);
+            setImage(response.store_images);
+            // 기본 레이아웃 세팅
             infowindow.setContent(
               '<div class="infoWindow">' +
                 ' <div class="title">' +
@@ -219,36 +241,43 @@ const Map = () => {
                 '  <div class="addressText"> ' +
                 response.store_information.phone +
                 " </div>" +
-                '<button class="more">'+
+                '<button id="more" onClick="detailHandler("'+
+                marker.id +
+                ')">'+
                 '자세히보기'+
                 '</button>'+
                 "</div>"
             );
+            //버튼 액션 만들어주는 function
+            infowindow.setContent(detailHandler());
           });
           // 마커에 마우스 클릭 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
           infowindow.setMap(kakaoMap, marker);
-          
+
+          // 마커에 이벤트 등록될까요?
+          //addEventHandler(content, "Click", onClick);
+
           kakaoMap.setCenter(marker.getPosition());
         });
+        console.log(detail);
 
         // 마커에 마우스아웃 이벤트를 등록합니다
-        kakao.maps.event.addListener(kakaoMap, "click", function () {
+        kakao.maps.event.addListener(kakaoMap, "click", function() {
           // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
           infowindow.setMap();
         });
       })(marker, infowindow);
     }
-  }, [kakaoMap, storeList]); 
+  }, [kakaoMap, storeList]);
   // 리스트를 생성합니다
 
-  
   return (
     <div>
       <div
         id="map"
         style={{
           width: "100vw",
-          height: "calc(100vh - 48px)",
+          height: "calc(100vh - 48px)"
         }}
         ref={container}
       ></div>
