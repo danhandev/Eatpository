@@ -28,7 +28,8 @@ function LoginPage({token,setToken}) {
 
   const onClickConfirmButton = () => {
     LogInAPI(userid, password).then((response) => {
-      if (response !== "") {
+      if (response == "success") {
+        console.log(response);
         alert("로그인 성공");
         setUserid("");
         setPassword("");
@@ -99,7 +100,7 @@ function LoginPage({token,setToken}) {
           </button>
           <div className="findSection">
             <Link to="/findid">아이디 찾기</Link>
-            <Link to="/findpw">비밀번호 찾기</Link>
+            <Link to="/findpw">비밀번호 재설정</Link>
           </div>
         </div>
       </div>

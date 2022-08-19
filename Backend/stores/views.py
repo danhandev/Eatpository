@@ -3,7 +3,7 @@ from django.shortcuts import render
 from stores.serializers import StoreSerializer, StoreRandomSerializer, Stores_Information, Serializers_Images
 from .models import Images, Stores
 from accounts.models import Users
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -20,6 +20,8 @@ import time
 import urllib.request
 import os
 from selenium.webdriver.common.by import By
+from Eatpository.settings import SECRET_KEY
+import jwt
 
 
 @api_view(['GET'])
@@ -66,14 +68,19 @@ def selected_stores(request):
 @api_view(['GET'])
 def random_store(request):
     try:
-        token = request.META['HTTP_AUTHORIZATION']
+        access_token = request.META['HTTP_AUTHORIZATION']
+        print(access_token)
+        tok = jwt.decode(access_token, key=SECRET_KEY, algorithm='HS256')
+        pk = tok.get('user_id')
+        user = get_object_or_404(Users, pk=pk)
     except:
         return Response({"message": "acceess 토큰 필요함. 로그인 요구"})
-    store_num = Stores.objects.count() + 1
-    random_num = random.randrange(1, store_num)
-    store = Stores.objects.get(id=random_num)
-    store = StoreRandomSerializer(store)
-    return Response({"random_sotre": store.data})
+    if user is not None:
+        store_num = Stores.objects.count() + 1
+        random_num = random.randrange(1, store_num)
+        store = Stores.objects.get(id=random_num)
+        store = StoreRandomSerializer(store)
+        return Response({"random_sotre": store.data})
 
 
 @api_view(['GET', 'POST'])
@@ -101,7 +108,7 @@ def edit(request):
         data['main_menu'] = places['category_group_name']
         data['address'] = places['road_address_name']
         data['longitude'] = places['x']
-        data['latitude'] = places['y'] 
+        data['latitude'] = places['y']
         data['phone_number'] = places['phone']
 
         img_folder_path = r".\static\selenium_images"
@@ -122,7 +129,6 @@ def edit(request):
         image_url = {}
         for i in range(10):
             try:
-
                 images[i].click()
                 time.sleep(0.5)
                 imgUrl = driver.find_element(
@@ -143,6 +149,7 @@ def edit(request):
 def save(request):
     info = request.POST.get('info').replace("'", "\"")
     info = json.loads(info)
+    print(info)
     image = request.POST.get('image').replace("'", "\"")
     image = json.loads(image)
     user = request.POST.get('user')
@@ -180,8 +187,8 @@ def stores_information(request):
             store = Stores.objects.get(id=store_id)
             store_info = Stores_Information(store)
             images = Images.objects.get(store=store)
+
             images = Serializers_Images(images)
-    
             return Response({"store_information": store_info.data, "store_images": images.data})
         except:
             return Response({"message": "error"})
