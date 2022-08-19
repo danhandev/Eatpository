@@ -8,8 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework import status
-from django.http import JsonResponse
-from asyncio.windows_events import NULL
+from django.http import JsonResponse 
 import requests
 from .secrets import KAKAO_API_KEY
 import json
@@ -102,8 +101,7 @@ def edit(request):
         data['main_menu'] = places['category_group_name']
         data['address'] = places['road_address_name']
         data['longitude'] = places['x']
-        data['latitude'] = places['y']
-        data['time'] = NULL
+        data['latitude'] = places['y'] 
         data['phone_number'] = places['phone']
 
         img_folder_path = r".\static\selenium_images"
@@ -112,7 +110,7 @@ def edit(request):
             os.mkdir(img_folder_path)
 
         # 노션에 있는 크롬 드라이버 설치 후 C 드라이브에 저장
-        driver = webdriver.Chrome(r"C:\chromedriver.exe")
+        driver = webdriver.Chrome(r"/usr/local/bin/chromedriver")
         driver.get("https://www.google.co.kr/imghp?hl=ko&ogbl")
 
         search = "홍대" + store

@@ -19,7 +19,7 @@ const DetailAPI = async (id) => {
     )
     .then((response) => {
       
-      storeDetail = response.data.store_information;
+      storeDetail = response.data;
       sessionStorage.setItem("detail",JSON.stringify(storeDetail));
     })
     .catch(function (error) {
