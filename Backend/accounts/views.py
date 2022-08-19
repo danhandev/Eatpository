@@ -41,34 +41,31 @@ def loginCheck(request):
 @api_view(['POST'])
 def loginValidate(request):
     try:
+        # 클라이언트에게 refresh_token 받기
         refresh_token = request.META['HTTP_AUTHORIZATION']
-        print(refresh_token)
         refresh_token = refresh_token[7:]
         refresh_token_deco = jwt.decode(
             refresh_token, key=SECRET_KEY, algorithm='HS256')
-        pk = refresh_token_deco.get('user_id')
-        print(pk)
-        user = Users.objects.get(pk=pk)
-        print(user)
-    except:
-        return Response({'message': "loginAgain"})
 
+        pk = refresh_token_deco.get('user_id')
+        user = Users.objects.get(pk=pk)
+    except:
+        return Response({'message': 'loginAgain'})
+
+    # refresh token 존재하는지 확인
     if user is not None:
+        # 유효한 refresh token인지 확인
         if user.refresh_token == refresh_token:
             token = RefreshToken.for_user(user)
             access_token = str(token.access_token)
-            print("있는데안노")
+
             return Response({'message': 'access_token_update', 'access_token': access_token})
-        print("user not none")
-
     else:
-        print("왜 아노")
-        return Response({'message': '왜안됑'})
+        return Response({'message': 'loginAgain'})
 
-
+# 회원가입
 @api_view(['POST'])
 def signup(request):
-
     if request.method == "POST":
         data = json.loads(request.body.decode('utf-8'))
         username = data.get("user_id")
@@ -80,108 +77,51 @@ def signup(request):
             phone_number=phone_number,
             role=False)
         user.save()
-        # payload = {"username": username}
-        # access_token = jwt.encode(
-        #     payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM).decode("utf-8")
+
         auth.login(request, user)
-        ##token = Token.objects.get_or_create(user=user)
+
         return Response({"message": "회원가입 성공"})
-# def signup(request):
-#     if request.method == "GET":
-#         return render(request, 'signup.html')
 
-#     if request.method == "POST":
-#         # user_id = request.POST.get("user_id")
-#         # password = request.POST.get("password")
-#         # phone_number = request.POST.get("phone_number")
-#         data =  json.loads(request.body.decode('utf-8'))
-#         username = data.get("user_id")
-#         password = data.get("password")
-#         phone_number = data.get("phone_number")
-#         user = Users.objects.create(
-#             username= username,
-#             password = password,
-#             phone_number = phone_number,
-#             role = False)
-#         login(request,user)
-#         payload = {"username" : username}
-#         access_token = jwt.encode(payload, JWT_SECRET_KEY , algorithm = JWT_ALGORITHM).decode("utf-8")
-#         return JsonResponse({"messages" : "LOGIN SUCCESS", "JWT" : access_token}, status = 201)
-
-
-def home(request):
-    return render(request, 'index.html')
-
-
-# @api_view(['POST'])
-# def user_login(request):
-#     # authenticate 사용해서 auth의 User 인증
-#     user = authenticate(username=request.data['user_id'], password=request.data['password'])
-#     if user is None:
-#         return Response(status=status.HTTP_401_UNAUTHORIZED) # 권한 없음
-#     try:
-#         # user를 통해 token get
-#         token = Token.objects.get(user=user)
-#     except:
-#         # [FIX]: token이 없는 경우 (token 생성 이후 기간이 지나 token이 만료되어 사라진 경우) token 재생성
-#         token = Token.objects.create(user=user)
-#     return Response({"Token": token.key})
+# 로그인
 @api_view(['POST'])
 def user_login(request):
     if request.method == "POST":
         data = json.loads(request.body.decode('utf-8'))
-        username = data.get("user_id")  # user_id에 해당하는 값 받아오기
-        password = data.get("password")  # password에 해당하는 값 받아오기
+        username = data.get("user_id")
+        password = data.get("password")
+
         try:
             # 사용자가 입력한 user_id 를 Users 모델 내 username filed로
             user = Users.objects.get(username=username)
         except:
             return Response({"message": "error"})
-        if auth.authenticate(request, username=username, password=password):
 
+        if auth.authenticate(request, username=username, password=password):
             auth.login(request, user)
+
+            # 로그인시 refresh_token 발급
             token = RefreshToken.for_user(user)
             refresh_token = str(token)
+
+            # 발급한 refresh_token을 user 객체에 저장
             user.refresh_token = refresh_token
             user.save()
+
+            # access_token 발급
             access_token = str(token.access_token)
+
+            # 클라이언트에 access_totken과 refresh_token 전달
             response = Response(
                 {"message": "success", "access_token": access_token, "refresh_token": refresh_token})
-
-            #token = Token.objects.get_or_create(user=user)
 
             return response
 
         else:
             return Response({"message": "UserNot"})
-# def user_login(request):
-#     if request.method == "GET":
-#         return render(request, "login.html")
 
-#     if request.method == "POST":
 
-#         username = request.POST.get('user_id')
-#         password = request.POST.get('password')
-
-#         if Users.objects.filter(username = username).exists():
-#             user = Users.objects.get(username =username)
-#             if user.password == password:
-
-#                 login(request,user)
-#                 payload = {"username" : username}
-#                 access_token = jwt.encode(payload, JWT_SECRET_KEY , algorithm = JWT_ALGORITHM).decode("utf-8")
-#                 return JsonResponse({"message" : "LOGIN SUCCESS" , "JWT" : access_token},status = 201)
-#             else :
-#                 return JsonResponse({"message" : "비밀번호 불일치"}, status = 404)
-#         else :
-#             return JsonResponse({"message" : "회원 정보 없음"}, status = 404)
-
-            # return redirect('home')
-        # user = auth.authenticate(request, username = user_id, password = password)
-        # if user is not None :
-        #     login(request, user)
-        #     return redirect('home')
-        # return render(request,'login.html',{"error" : "로그인 실패. 다시 시도해 주세요"})
+def home(request):
+    return render(request, 'index.html')
 
 
 def user_logout(request):
@@ -189,7 +129,7 @@ def user_logout(request):
     return redirect('home')
 
 
-# 아이디 찾기!!
+# 아이디 찾기
 @api_view(['GET'])
 def user_id(request):
     if request.method == "GET":
@@ -204,9 +144,7 @@ def user_id(request):
         else:
             return Response({"message": "user does not exist"})
 
-# 비밀번호 찾기!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
+# 비밀번호 찾기
 @api_view(['GET'])
 def user_password(request):
     if request.method == "GET":
@@ -218,15 +156,14 @@ def user_password(request):
         except:
             return Response({"message": "user does not exist : except occurs"})
         if user is not None:
+            # 전화 번호로 유효한 user 확인
             if user.phone_number == phone_number:
+                # 새로 입력한 password를 user 객체에 저장
                 new_pw = request.GET.get("new_password")
-
-                # new_pw = ""
-                # word = string.ascii_letters + string.digits + string.punctuation
-                # for i in range(8):
-                #     new_pw = new_pw + random.choice(word)
                 user.set_password(new_pw)
                 user.save()
+
+                # 로그인
                 auth.login(request, user)
                 return Response({"message": "비밀번호 변경"})
             else:
@@ -234,9 +171,7 @@ def user_password(request):
         else:
             return Response({"message": "user does not exist : user_id not correct"})
 
-# 비밀번호 재설정!!!!
-
-
+# 비밀번호 재설정
 @api_view(['PATCH'])
 def new_password(request):
     if request.method == "PATCH":
@@ -244,10 +179,13 @@ def new_password(request):
         username = data.get("user_id")
         password = data.get("password")
         re_password = data.get("re_password")
+
         try:
             user = Users.objects.get(username=username)
         except:
             return Response({"message": "user does not exist"})
+
+        # 기존 password
         if user.password == password:
             user.password = re_password
             user.save()
