@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FindIdAPI from "../../API/FindIdAPI";
+import "../../Css/index.css";
 import axios from "axios";
 function FindIdPage() {
 

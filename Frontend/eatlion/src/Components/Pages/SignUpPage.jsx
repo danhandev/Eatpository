@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SignUpAPI from "../../API/SignUpAPI";
 import { Link,useNavigate } from 'react-router-dom';
+import "../../Css/index.css";
 function SignUpPage({token,setToken}) {
  // const [token,setToken]=useState('');
   const [userid, setUserid] = useState("");
@@ -68,7 +69,7 @@ function SignUpPage({token,setToken}) {
       <div className="joinMain fullsize">
         {" "}
         <div className="titleWrap">멋사먹자 회원가입</div>
-        <div className="subText">
+        <div className="subText grey">
           서비스 가입을 하면 멋사먹자의 이용약관, 개인정보취급방침 및 개인정보
           3자 제공에 동의하게 됩니다.
           <br /> 이미 계정이 있는 경우 로그인하여 주세요

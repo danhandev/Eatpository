@@ -24,6 +24,7 @@ body{
 }
 
 .contentWrap{
+    width: 100%;
     text-align: start;
 }
 
@@ -93,6 +94,10 @@ font-weight: 400;
     font-size: 12px;
     font-weight: 200;
     line-height: 150%;
+    color: #828282;
+}
+
+.grey{
     color: #828282;
 }
 

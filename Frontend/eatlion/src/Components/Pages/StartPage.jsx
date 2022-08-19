@@ -84,11 +84,11 @@ function StartPage() {
   return (
     <div className="back">
       <div className="start page">
-        <div className="titleWrap">
+        <div className="titleWrap edit">
           멋사먹자는 4명의 홍대생 에디터가 <br />
           선정한 홍대 맛집을 소개하는 서비스 입니다.
         </div>
-        <div className="subText">
+        <div className="subTextStart">
           홍대생 에디터가 선정한 맛집 리스트를 확인하고, 가고 싶은 식당을 선택해
           보세요! <br />뭘 먹을지 못 정하겠다고요? 랜덤 추천 기능을
           이용해보세요! 랜덤으로 식당 한 곳을 추천해드립니다!

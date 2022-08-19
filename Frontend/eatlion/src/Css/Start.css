@@ -19,14 +19,15 @@ span{
     bottom: 0;
 }
 
-.titleWrap{
+.edit{
     margin: 1.4rem 0 ;
     font-size: 1.2rem;
     color: #f4f4f4;
 }
 
-.subText{
-    margin-top: 0;
+.subTextStart{ 
+    font-size: 12px; 
+    line-height: 150%; 
     font-weight:200;
     color: #f4f4f4;
 }
@@ -102,3 +103,32 @@ button.editor {
 
 } 
 
+.a{ 
+    background-image: url(../Img/editor1.png);
+    background-repeat: no-repeat;
+}
+.b{ 
+    background-image: url(../Img/editor2.png);
+    background-repeat: no-repeat;
+}
+.c{ 
+    background-image: url(../Img/editor3.png);
+    background-repeat: no-repeat;
+}
+.d{ 
+    background-image: url(../Img/editor4.png);
+    background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: 1440px) {
+	button.editor {
+        border-radius: 8px;
+        width: 16rem;
+        height: 12rem; 
+    }
+
+    .page{
+        top: 64px;
+    }
+}
