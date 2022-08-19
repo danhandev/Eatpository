@@ -37,7 +37,7 @@ const Map = () => {
   }, []);
 
   // editor 혹은 category 클릭 시 result 변화
-  const editorHandler = e => {
+  const editorHandler = (e) => {
     let id = e.target.id;
     result[id] = !result[id] * 1;
     document.getElementById(id).classList.toggle("clicked");
@@ -45,11 +45,12 @@ const Map = () => {
     editornum = editornum.join("");
     let categorynum = result.slice(4, 8).join("");
 
-    ListAPI(editornum, categorynum).then(response => {
+    ListAPI(editornum, categorynum).then((response) => {
       sessionStorage.setItem("listkey", JSON.stringify(editornum));
       sessionStorage.setItem("categorykey", JSON.stringify(categorynum));
       setStorelist(JSON.parse(sessionStorage.getItem("result")));
     });
+    
   };
 
   const number = storeList.length;
@@ -63,15 +64,13 @@ const Map = () => {
   });
 
   const detailHandler = e => {
-    document.getElementById('more').addEventListener('click', function(){
+    
       console.log('detail handler');
       console.log('detail : ',detail);
       console.log('store detail : ',storeDetail);
       console.log('store images : ',images);
-      return( 
-        alert('여기다가 컴포넌트 렌더링하면 됨. 근데 외부 선언하면 state 어떻게 하더라?')
-      )
-    })
+    
+    
   }
 
   //  const Details = () => {
@@ -174,25 +173,25 @@ const Map = () => {
         storeList[i].longitude
       );
 
-      if (storeList[i].user == 2) {
+      if (storeList[i].user === 2) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[0],
           imageSize,
           imageOption
         );
-      } else if (storeList[i].user == 3) {
+      } else if (storeList[i].user === 3) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[1],
           imageSize,
           imageOption
         );
-      } else if (storeList[i].user == 4) {
+      } else if (storeList[i].user === 4) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[2],
           imageSize,
           imageOption
         );
-      } else if (storeList[i].user == 5) {
+      } else if (storeList[i].user === 5) {
         var markerImage = new kakao.maps.MarkerImage(
           imageSrc[3],
           imageSize,
@@ -219,12 +218,12 @@ const Map = () => {
         // 마커에 마우스 이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function() {
           DetailAPI(marker.id).then((response) => {  
-            setStore(response.store_information);
-            setImage(response.store_images);
+            // setStore(response.store_information);
+            // setImage(response.store_images);
             // 기본 레이아웃 세팅
             infowindow.setContent(
               '<div class="infoWindow">' +
-                ' <div class="title">' +
+                ' <div class="detailTitle">' +
                 '  <div class="storeName"> ' +
                 response.store_information.store_name +
                 " </div>" +
@@ -259,8 +258,7 @@ const Map = () => {
 
           kakaoMap.setCenter(marker.getPosition());
         });
-        console.log(detail);
-
+      
         // 마커에 마우스아웃 이벤트를 등록합니다
         kakao.maps.event.addListener(kakaoMap, "click", function() {
           // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
@@ -302,16 +300,16 @@ const Map = () => {
         <div className="sectionSecond">
           <p>원하는 음식 종류를 선택해주세요</p>
           <div className="cardsSection">
-            <button onClick={editorHandler} className="card" id="4">
+            <button onClick={editorHandler} className="card korean" id="4">
               한식
             </button>
-            <button onClick={editorHandler} className="card" id="5">
+            <button onClick={editorHandler} className="card chinese" id="5">
               중식
             </button>
-            <button onClick={editorHandler} className="card" id="6">
+            <button onClick={editorHandler} className="card japanese" id="6">
               일식
             </button>
-            <button onClick={editorHandler} className="card" id="7">
+            <button onClick={editorHandler} className="card dining" id="7">
               양식
             </button>
           </div>
