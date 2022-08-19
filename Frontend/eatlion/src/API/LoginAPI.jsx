@@ -7,7 +7,7 @@ const LogInAPI = async (userid, password) => {
   let access_token = "";
   let refresh_token = "";
   await axios
-    .post("http://15.165.226.61:8000/users/login/", {
+    .post("http://15.165.226.61:3000/users/login/", {
       user_id: userid,
       password: password,
     },{withCredentials:true,})

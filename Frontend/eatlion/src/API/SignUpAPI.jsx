@@ -5,7 +5,7 @@ import axios from "axios";
 const SignUpAPI = async (userid, password,userphone) => {
   let token = ''
   
-  await axios.post("http://15.165.226.61:8000/users/signup/", {
+  await axios.post("http://15.165.226.61:3000/users/signup/", {
     
     user_id: userid,
     password: password,
