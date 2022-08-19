@@ -22,17 +22,46 @@ import string
 @api_view(['POST'])
 def loginCheck(request):
 
-    access_token = request.META['HTTP_AUTHORIZATION']
-
-    access_token = access_token[7:]
-    access_token = jwt.decode(access_token, key=SECRET_KEY, algorithm='HS256')
-    pk = access_token.get('user_id')
     try:
-        user = get_object_or_404(Users, pk=pk)
+        access_token = request.META['HTTP_AUTHORIZATION']
+
+        access_token = access_token[7:]
+        access_token = jwt.decode(
+            access_token, key=SECRET_KEY, algorithm='HS256')
+        pk = access_token.get('user_id')
+        user = Users.objects.get(pk=pk)
     except:
         return Response({'message': 'user does not exist'})
     if user is not None:
         return Response({'message': 'success'})
+
+
+@api_view(['POST'])
+def loginValidate(request):
+    try:
+        refresh_token = request.META['HTTP_AUTHORIZATION']
+        print(refresh_token)
+        refresh_token = refresh_token[7:]
+        refresh_token_deco = jwt.decode(
+            refresh_token, key=SECRET_KEY, algorithm='HS256')
+        pk = refresh_token_deco.get('user_id')
+        print(pk)
+        user = Users.objects.get(pk=pk)
+        print(user)
+    except:
+        return Response({'message': "loginAgin"})
+
+    if user is not None:
+        if user.refresh_token == refresh_token:
+            token = RefreshToken.for_user(user)
+            access_token = str(token.access_token)
+            print("있는데안노")
+            return Response({'message': 'access_token_update', 'access_token': access_token})
+        print("user not none")
+
+    else:
+        print("왜 아노")
+        return Response({'message': '왜안됑'})
 
 
 @api_view(['POST'])
@@ -111,16 +140,18 @@ def user_login(request):
             auth.login(request, user)
             token = RefreshToken.for_user(user)
             refresh_token = str(token)
+            user.refresh_token = refresh_token
+            user.save()
             access_token = str(token.access_token)
             response = Response(
-                {"message": "로그인 성공!", "access_token": access_token, "refresh_token": refresh_token})
+                {"message": "success", "access_token": access_token, "refresh_token": refresh_token})
 
             #token = Token.objects.get_or_create(user=user)
 
             return response
 
         else:
-            return Response({"message": "not correct password"})
+            return Response({"message": "UserNot"})
 # def user_login(request):
 #     if request.method == "GET":
 #         return render(request, "login.html")

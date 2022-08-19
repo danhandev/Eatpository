@@ -188,7 +188,9 @@ def stores_information(request):
             store = Stores.objects.get(id=store_id)
             store_info = Stores_Information(store)
             images = Images.objects.get(store=store)
+
             images = Serializers_Images(images)
+            print(images.data)
             return Response({"store_information": store_info.data, "store_images": images.data})
         except:
             return Response({"message": "error"})

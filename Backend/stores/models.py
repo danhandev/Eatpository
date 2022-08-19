@@ -21,9 +21,9 @@ class Stores(models.Model):
 
 
 class Images(models.Model):
-    image1 = models.ImageField(max_length=100, null=True, blank=True)
-    image2 = models.ImageField(max_length=100, null=True, blank=True)
-    image3 = models.ImageField(max_length=100, null=True, blank=True)
+    image1 = models.TextField(null=True, blank=True)
+    image2 = models.TextField(null=True, blank=True)
+    image3 = models.TextField(null=True, blank=True)
     store = models.ForeignKey(Stores, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
