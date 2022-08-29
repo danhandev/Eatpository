@@ -54,9 +54,9 @@ if (1){
     },
   })
     .then((res) => { 
-      if(res.data.message=="success"){
+      if(res.data.message==="success"){
         setToken("True");}
-      else if(res.data.message = "refresh_token needed"){
+      else if(res.data.message === "refresh_token needed"){
         try{
         refresh_token = document.cookie
       .split('; ')
@@ -76,7 +76,7 @@ if (1){
           },
         })  
         .then((res) => {   
-          if(res.data.message=='loginAgain'){
+          if(res.data.message==='loginAgain'){
            
             is_alert = true;
             console.log("로그인이 만료되었습니다");
@@ -84,14 +84,14 @@ if (1){
             setLogged(false);
 
           }
-          else if(res.data.message=='access_token_update'){
+          else if(res.data.message==='access_token_update'){
             access_token = res.data.access_token;
             
             document.cookie = `access_token=${access_token}; max-age=10`;
             setLogged(true);
             setToken("True");
           }
-          else if (res.data.message =='noAccess'){
+          else if (res.data.message ==='noAccess'){
             console.log('no access token')
           }
         
