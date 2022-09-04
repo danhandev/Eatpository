@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useEffect,useState } from "react";
-import axios from "axios";
+import React, {useState } from "react";
+import "../../Css/index.css";
+
 function RenamePwPage(setToken){
     const [password, setPassword] = useState('');
     const [passwordToConfirm, setPasswordToConfirm] = useState('');

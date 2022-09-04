@@ -9,16 +9,18 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-from datetime import datetime
-import os, json
+import os
+import json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
-from .secrets import *
+import datetime
+from .secrets import MY_SECRET_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-#Eatpository/backend/eatpository/settings.py
-#BASE_DIR=Eatpository/backend
+ROOT_DIR = os.path.dirname(BASE_DIR)
+# Eatpository/backend/eatpository/settings.py
+# BASE_DIR=Eatpository/backend
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -30,7 +32,7 @@ SECRET_KEY = MY_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,17 +44,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # CORS
     'corsheaders',
-    
+
     # DRF
     'rest_framework',
     'rest_framework.authtoken',
 
     # rest_auth
     'rest_auth',
-    
+
     # apps
     'accounts',
     'stores',
@@ -65,12 +67,19 @@ AUTH_USER_MODEL = 'accounts.User'
 # DRF auth settings - Token으로 User 찾아오기
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ]
 }
 
-JWT_SECRET_KEY =  MY_SECRET_KEY
-JWT_ALGORITHM =  'HS256'
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(seconds=10),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(seconds=45),
+    'SIGNING_KEY': SECRET_KEY,
+    'ALGORITHM': 'HS256',
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
 
 
 MIDDLEWARE = [
@@ -83,12 +92,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
-
 # CORS 세팅 (CORS_ORIGIN_WHITELIST, CORS_ALLOW_CREDENTIALS)
-CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
-                         ,'http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'http://127.0.0.1:3000']
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = (
@@ -166,13 +174,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'images','static')
-]
-# STATIC_ROOT 세팅
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS=[
+#     os.path.join(BASE_DIR,'static','images')
+# ]
+# # STATIC_ROOT 세팅
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static') ## 모든 정적 파일들을 한 곳으로 모아둘 경로
 
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/', 'selenium_images'),
+    # os.path.join(BASE_DIR, 'static', 'images'),
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

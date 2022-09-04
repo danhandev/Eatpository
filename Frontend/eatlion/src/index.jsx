@@ -8,10 +8,9 @@ import App from './Components/Pages/App';
 axios.defaults.withCredentials = true;
 
 ReactDOM.render(
-  <React.StrictMode>
+
     <BrowserRouter>
      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById("root")
 );

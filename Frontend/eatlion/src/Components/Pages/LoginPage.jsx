@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogInAPI from "../../API/LoginAPI";
-
+import "../../Css/index.css";
 function LoginPage({token,setToken}) {
   
   const [userid, setUserid] = useState("");
@@ -28,12 +28,13 @@ function LoginPage({token,setToken}) {
 
   const onClickConfirmButton = () => {
     LogInAPI(userid, password).then((response) => {
-      if (response !== "") {
+      if (response == "success") {
+        console.log(response);
         alert("로그인 성공");
         setUserid("");
         setPassword("");
         setToken(response);
-        navigate("/");
+        navigate("/start");
       } else {
         alert("로그인 실패");
         setUserid("");
@@ -41,6 +42,7 @@ function LoginPage({token,setToken}) {
       }
     });
   };
+
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     if (token === "") {
@@ -98,7 +100,7 @@ function LoginPage({token,setToken}) {
           </button>
           <div className="findSection">
             <Link to="/findid">아이디 찾기</Link>
-            <Link to="/findpw">비밀번호 찾기</Link>
+            <Link to="/findpw">비밀번호 재설정</Link>
           </div>
         </div>
       </div>
