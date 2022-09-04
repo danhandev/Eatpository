@@ -22,8 +22,8 @@ const Map = () => {
   );
  
   const [kakaoMap, setKakaoMap] = useState(null);
-  const container = useRef();
 
+  const container = useRef();
   // 첫 스위치 초기화
   useEffect(() => {
     for (let i = 0; i < 8; i++) {
@@ -31,8 +31,8 @@ const Map = () => {
         document.getElementById(i).classList.toggle("clicked");
       }
     }
-  }, []);
-
+  }, [result]);
+  
   // editor 혹은 category 클릭 시 result 변화
   const editorHandler = (e) => {
     let id = e.target.id;
@@ -59,6 +59,13 @@ const Map = () => {
   });
   
   
+  // const closeHandler= (e)=>{
+  //  document.getElementById('close').addEventListener('click',function(){
+  //   let parents=document.querySelector("infowindow");
+  //   parents.remove();
+  //   console.log(parents);
+  //  })
+  // }
   // 지도와 마커를 생성합니다
   useEffect(() => {
     //const container = document.getElementById("map");
@@ -77,27 +84,26 @@ const Map = () => {
     if (kakaoMap === null) {
       return;
     }
-    console.log(storeList)
     
     
-      // save center position
-      // const center = kakaoMap.getCenter();
-      // relayout and...
-      // kakaoMap.relayout();
-      // // restore
-      // kakaoMap.setCenter(center);
+    // save center position
+    // const center = kakaoMap.getCenter();
+    // relayout and...
+    // kakaoMap.relayout();
+    // // restore
+    // kakaoMap.setCenter(center);
     const imageSrc = [
-        process.env.PUBLIC_URL + `/assets/mini1.png`,
-        process.env.PUBLIC_URL + `/assets/mini2.png`,
-        process.env.PUBLIC_URL + `/assets/mini3.png`,
-        process.env.PUBLIC_URL + `/assets/mini4.png`,
-        process.env.PUBLIC_URL + `/assets/mini5.png`
-      ],
-      imageSize = new kakao.maps.Size(48, 48),
-      imageOption = { offset: new kakao.maps.Point(10, 48) };
-
+      process.env.PUBLIC_URL + `/assets/mini1.png`,
+      process.env.PUBLIC_URL + `/assets/mini2.png`,
+      process.env.PUBLIC_URL + `/assets/mini3.png`,
+      process.env.PUBLIC_URL + `/assets/mini4.png`,
+      process.env.PUBLIC_URL + `/assets/mini5.png`
+    ],
+    imageSize = new kakao.maps.Size(48, 48),
+    imageOption = { offset: new kakao.maps.Point(10, 48) };
+    
     // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
+    
     for (var i = 0; i < storeList.length; i++) {
       var storeId = storeList[i].id;
       var markerpos = new kakao.maps.LatLng(
@@ -130,25 +136,27 @@ const Map = () => {
           imageOption
         );
       }
-
+      
       var marker = new kakao.maps.Marker({
         map: kakaoMap,
         position: markerpos,
         image: markerImage,
         id: storeId
       });
-
       marker.id = storeId;
+
 
       var infowindow = new kakao.maps.CustomOverlay({
         position: marker.getPosition(),
         clickable: true,
         id: marker.id,
+        removable:true
         //content: content
       });
       (function(marker, infowindow) {
         // 마커에 마우스 이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function() {
+        
           DetailAPI(marker.id).then((response) => {  
             // setStore(response.store_information);
             // setImage(response.store_images);
@@ -162,6 +170,7 @@ const Map = () => {
                 '  <div class="categoryText"> ' +
                 response.store_information.category +
                 " </div>" +
+                `<button id="close" title="닫기"></button>`+
                 "</div>" +
                 '  <div class="addressText"> ' +
                 response.store_information.main_menu +
@@ -185,15 +194,18 @@ const Map = () => {
             );
           });
           // 마커에 마우스 클릭 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+          // infowindow.setContent(closeHandler());
           infowindow.setMap(kakaoMap, marker);
           kakaoMap.setCenter(marker.getPosition());
+        
         });
       
         // 마커에 마우스아웃 이벤트를 등록합니다
         kakao.maps.event.addListener(kakaoMap, "click", function() {
           infowindow.setMap(null);
-      
+          marker.setMap(null);
         });
+       
       })(marker, infowindow);
     }
   }, [kakaoMap,storeList]);
