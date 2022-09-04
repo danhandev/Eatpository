@@ -5,7 +5,7 @@
 ```python
 # 가상환경 설치
 python -m venv myvenv
-****
+
 # 가상환경 실행 (윈도우 기준)
 source myvenv/Scripts/activate
 
