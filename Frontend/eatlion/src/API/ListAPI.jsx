@@ -6,7 +6,7 @@ const ListAPI = async (resultnum, categorynum) => {
   let store = "";
   await axios
     .get(
-      "http://localhost:3000/stores/selected/",
+      "http://localhost:8000/stores/selected/",
       {
         params: { editor: resultnum, category: categorynum },
       },

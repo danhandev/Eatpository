@@ -59,13 +59,7 @@ const Map = () => {
   });
   
   
-  // const closeHandler= (e)=>{
-  //  document.getElementById('close').addEventListener('click',function(){
-  //   let parents=document.querySelector("infowindow");
-  //   parents.remove();
-  //   console.log(parents);
-  //  })
-  // }
+
   // 지도와 마커를 생성합니다
   useEffect(() => {
     //const container = document.getElementById("map");
@@ -103,6 +97,16 @@ const Map = () => {
     imageOption = { offset: new kakao.maps.Point(10, 48) };
     
     // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var markerVar = document.getElementById("map");
+  if (markerVar.hasChildNodes()) {
+    let children = markerVar.childNodes;
+    for (const nodes of children){
+        // nodes.textContent="";
+        console.log(nodes);
+    }
+    children[0].firstChild.lastChild.textContent = "";
+    // console.log(children.textContent);
+  }   
     
     for (var i = 0; i < storeList.length; i++) {
       var storeId = storeList[i].id;
@@ -203,7 +207,6 @@ const Map = () => {
         // 마커에 마우스아웃 이벤트를 등록합니다
         kakao.maps.event.addListener(kakaoMap, "click", function() {
           infowindow.setMap(null);
-          marker.setMap(null);
         });
        
       })(marker, infowindow);
