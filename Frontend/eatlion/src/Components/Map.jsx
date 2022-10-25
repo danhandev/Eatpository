@@ -48,7 +48,9 @@ const Map = () => {
     });
   };
   
+  
   const number = storeList.length;
+  
   const listitems = storeList.map(store => {
     return (
       <div className="lists" key={store.id}>

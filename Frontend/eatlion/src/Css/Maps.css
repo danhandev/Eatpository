@@ -277,3 +277,38 @@ p {
     background-image: url(../Img/dining.png);
     background-repeat: no-repeat;
 }
+
+
+@media screen and (max-width: 390px){
+    p{
+        font-size: 0.8rem;
+    }
+    .wrapper{
+        width: 12rem;
+        right: 1rem;
+    }
+    .korean{
+        background-position: 1rem;
+        background-size: 14%;
+    }
+    .japanese{
+        background-position: 1rem;
+        background-size: 14%; 
+    }
+    .chinese{
+        background-position: 1rem;
+        background-size: 14%; 
+    }
+    .dining{
+        background-position: 1rem;
+        background-size: 14%;
+    }
+
+    .sectionThird{
+        height: 24vh;
+    }
+
+    .sectionForth{
+        display: none;
+    }
+ } 
