@@ -49,12 +49,20 @@ const Map = () => {
   };
 
   const onClickFold = () => { 
-    let childList = document.getElementById("wrapper").children;  
+    let wrapper = document.getElementById("wrapper");
+    let childList = wrapper.children;  
     for (let i = 0; i < 4; i++) {
       if (childList[i]) {
        childList[i].classList.toggle("turnOff");
       }
-    } 
+    }  
+    // check pointer event 
+    if(wrapper.style.pointerEvents === "none"){
+      wrapper.style.pointerEvents = "auto";
+    }
+    else{
+      wrapper.style.pointerEvents = "none";
+    }
   };
 
   const number = storeList.length;

@@ -66,16 +66,16 @@ p {
 }
 
 .turnOff{  
-    opacity: 0;  
+    opacity: 0; 
     /* transition:all 600ms cubic-bezier(0.64, 0.01, 0.07, 1.65);  */
     transition: visibility 0.3s linear,opacity 0.3s linear;
-}
+} 
 
 .sectionFirst {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);
-    
+    box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);  
+
     display: flex;
     transition:all 300ms cubic-bezier(0.64, 0.01, 0.07, 1.65); 
     flex-direction: column;
