@@ -49,15 +49,12 @@ const Map = () => {
   };
 
   const onClickFold = () => { 
-    let childList = document.getElementById("wrapper").children; 
-    console.log(childList); 
+    let childList = document.getElementById("wrapper").children;  
     for (let i = 0; i < 4; i++) {
       if (childList[i]) {
        childList[i].classList.toggle("turnOff");
       }
-    }
-    //document.getElementById("wrapper").children.classList.toggle("turnOff");
-    // document.getElementById("wrapper").classList.toggle("turnOff");
+    } 
   };
 
   const number = storeList.length;
@@ -86,13 +83,7 @@ const Map = () => {
     if (kakaoMap === null) {
       return;
     }
-
-    // save center position
-    // const center = kakaoMap.getCenter();
-    // relayout and...
-    // kakaoMap.relayout();
-    // // restore
-    // kakaoMap.setCenter(center);
+ 
     const imageSrc = [
         process.env.PUBLIC_URL + `/assets/mini1.png`,
         process.env.PUBLIC_URL + `/assets/mini2.png`,
@@ -276,12 +267,12 @@ const Map = () => {
             랜덤으로 맛집을 추천받아볼까요?
           </button>
         </div>
+      </div>
         <div className="fold">
           <button className="foldButton" onClick={onClickFold}>
             필터 접기
           </button>
         </div>
-      </div>
     </div>
   );
 };
