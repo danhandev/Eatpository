@@ -1,12 +1,15 @@
 /* z-index 설정으로 컴포넌트를 map보다 위에 띄울 것 ! */
-#table{
+#table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-th, td{
+
+th,
+td {
     padding: 10px 20px;
     border: 1px solid #000;
 }
+
 p {
     color: #374279;
     font-weight: 400;
@@ -14,21 +17,21 @@ p {
     margin: 0;
 }
 
-.subtext{
+.subtext {
     font-size: 10px;
 }
 
-.emoji{
+.emoji {
     width: 10px;
 }
 
 .title {
     display: grid;
     flex-direction: row;
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     text-align: start;
 
-    width: 100%; 
+    width: 100%;
     font-style: normal;
     font-size: 13px;
     line-height: 23px;
@@ -37,19 +40,19 @@ p {
     border-bottom: 1px solid #D9D9D9
 }
 
-.detailTitle{ 
-    display: flex;  
+.detailTitle {
+    display: flex;
     gap: 0.2rem;
     align-items: baseline;
 }
 
-.subDetail{ 
+.subDetail {
     display: flex;
     flex-direction: row;
     gap: 0.4rem;
 }
 
-.wrapper{
+.wrapper {
     position: absolute;
     width: 18rem;
     top: 5rem;
@@ -57,17 +60,24 @@ p {
     z-index: 2;
 
     display: flex;
+    gap: 0.8rem;
     flex-direction: column;
     justify-content: center;
-
 }
+
+.turnOff{  
+    opacity: 0; 
+    /* transition:all 600ms cubic-bezier(0.64, 0.01, 0.07, 1.65);  */
+    transition: visibility 0.3s linear,opacity 0.3s linear;
+} 
 
 .sectionFirst {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);
+    box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);  
 
     display: flex;
+    transition:all 300ms cubic-bezier(0.64, 0.01, 0.07, 1.65); 
     flex-direction: column;
     justify-content: center;
     text-align: center;
@@ -82,12 +92,12 @@ p {
     box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);
 
     display: flex;
+    transition:all 300ms cubic-bezier(0.64, 0.01, 0.07, 1.65); 
     flex-direction: column;
     justify-content: center;
     text-align: center;
     align-items: center;
-
-    margin-top: 0.8rem;
+  
     padding: 0.6rem;
     gap: 0.6rem;
 }
@@ -99,27 +109,26 @@ p {
     box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);
 
     display: flex;
+    transition:all 300ms cubic-bezier(0.64, 0.01, 0.07, 1.65); 
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    align-items: center;
-
-    margin-top: 0.8rem;
+    align-items: center; 
     padding: 0.6rem;
     gap: 0.6rem;
 }
- 
-.listSection{
+
+.listSection {
     width: 100%;
     height: 40vh;
     overflow: scroll;
 }
 
-.listSection::-webkit-scrollbar{
+.listSection::-webkit-scrollbar {
     width: 4px;
 }
 
-.listSection::-webkit-scrollbar-thumb{
+.listSection::-webkit-scrollbar-thumb {
     height: 2%;
     width: 10px;
     background-color: #D9D9D9;
@@ -127,10 +136,10 @@ p {
 }
 
 
-.lists{ 
+.lists {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    text-align: start; 
+    grid-template-columns: repeat(2, 1fr);
+    text-align: start;
     padding: 0.8rem 0;
 
     border-bottom: solid 1px #D9D9D9;
@@ -138,18 +147,17 @@ p {
 
 }
 
-.sectionForth { 
+.sectionForth {
     background-color: #0D6EFD;
     border-radius: 8px;
     box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);
-    
+
     display: flex;
     justify-content: center;
     text-align: center;
     align-items: center;
-    
-    margin-top: 1rem;
-    padding: 0.2rem 1rem; 
+ 
+    padding: 0.2rem 1rem;
 }
 
 .cardsSection {
@@ -160,37 +168,37 @@ p {
     column-gap: 0.5rem;
 }
 
-.card { 
+.card {
     padding: 0.5rem;
     border-radius: 8px;
     background-color: #E9ECEF;
     color: #6C757D;
 }
 
-.clicked{
+.clicked {
     background-color: #0D6EFD;
     color: white;
 }
 
-.menuCard { 
+.menuCard {
     padding: 0.8rem;
     border-radius: 8px;
     background-color: #0D6EFD;
     color: white;
-} 
+}
 
 .randomButton {
     width: 100%;
     height: 4vh;
     border: none;
 
-    text-align: center; 
+    text-align: center;
     background-color: #0D6EFD;
     color: white;
     border-radius: 8px;
 }
 
-.infoWindow{
+.infoWindow {
     width: 14rem;
     background-color: white;
     padding: 1rem 1rem;
@@ -207,21 +215,33 @@ p {
     border: solid 1px #d4d4d4;
 }
 
-.storeName{
+.storeName {
     font-size: 13px;
-    font-weight: 600; 
-    color:#000;
+    font-weight: 600;
+    color: #000;
 }
 
-.categoryText{
-    font-size:12px;
+.categoryText {
+    font-size: 12px;
     font-weight: 600;
     color: #444444;
 }
-.close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-.close:hover {cursor: pointer;}
 
-.imageSection{
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #888;
+    width: 17px;
+    height: 17px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.imageSection {
     display: flex;
     flex-direction: row;
     gap: 0.4rem;
@@ -229,51 +249,117 @@ p {
     object-fit: cover;
 }
 
+button.foldButton { 
+    position: absolute;
+    right: 1rem;
+    bottom: 2rem;
+    width: 6rem;
 
-.addressText{
+    background-color: white;
+    border: solid 1px #d4d4d4;
+    border-radius: 8px;
+    
+    display:none;
+    box-shadow: 0px 8px 24px -4px rgba(43, 44, 50, 0.2);
+    text-align: center;
+    place-content: center;
+    padding: 0.4rem;
+    align-self: end;
+    z-index: 2; 
+    font-size: 0.4rem;
+}
+
+.addressText {
     width: inherit;
     white-space: normal;
-    font-size:12px;
+    font-size: 12px;
     font-weight: 400;
     word-break: break-all;
     color: #444444;
-}   
+}
 
-.detailSection{
+.detailSection {
     background-color: white;
     position: absolute;
-    top:200px;
-    left:100px;
+    top: 200px;
+    left: 100px;
 
     z-index: 10;
 }
 
-.overlay{
+.overlay {
     background-color: wheat;
-    padding:2rem;
+    padding: 2rem;
 }
 
-.korean{
+.korean {
     background-position: 2.2rem;
     background-size: 10%;
     background-image: url(../Img/korean.png);
     background-repeat: no-repeat;
 }
-.japanese{
+
+.japanese {
     background-position: 2.2rem;
     background-size: 10%;
     background-image: url(../Img/japanese.png);
     background-repeat: no-repeat;
 }
-.chinese{
+
+.chinese {
     background-position: 2.2rem;
     background-size: 10%;
     background-image: url(../Img/chinese.png);
     background-repeat: no-repeat;
 }
-.dining{
+
+.dining {
     background-position: 2.2rem;
     background-size: 10%;
     background-image: url(../Img/dining.png);
     background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: 420px) {
+    p {
+        font-size: 0.8rem;
+    }
+
+    .wrapper { 
+        width: 12rem;
+        right: 1rem;
+    }
+
+    .korean {
+        background-position: 1rem;
+        background-size: 14%;
+    }
+
+    .japanese {
+        background-position: 1rem;
+        background-size: 14%;
+    }
+
+    .chinese {
+        background-position: 1rem;
+        background-size: 14%;
+    }
+
+    .dining {
+        background-position: 1rem;
+        background-size: 14%;
+    }
+
+    .sectionThird {
+        height: 32vh;
+    }
+
+    .sectionForth {
+        display: none;
+    }
+
+    button.foldButton { 
+        display: flex;
+    }
 }

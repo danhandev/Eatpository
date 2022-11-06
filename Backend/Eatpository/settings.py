@@ -15,6 +15,8 @@ from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
 import datetime
 from .secrets import MY_SECRET_KEY
+import pymysql
+pymysql.install_as_MySQLdb()
 
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -144,8 +146,12 @@ WSGI_APPLICATION = 'Eatpository.wsgi.application'
 '''
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stores_stores',
+        'USER': 'root',
+        'PASSWORD': '1234', #유저랑 패스워드는 mysql workbench에서 사용하는 개인것
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 '''
