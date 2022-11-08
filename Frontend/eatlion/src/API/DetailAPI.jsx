@@ -8,10 +8,10 @@ const DetailAPI = async (id) => {
   let storeDetail = null;
   await axios
     .get(
-      'http://localhost:8000/stores/store-info',
-  
+      "http://15.165.226.61/stores/store-info",
+
       {
-        params:{store_id:id},
+        params: { store_id: id },
       },
       {
         withCredentials: true,
@@ -19,12 +19,11 @@ const DetailAPI = async (id) => {
     )
     .then((response) => {
       storeDetail = response.data;
-      sessionStorage.setItem("detail",JSON.stringify(storeDetail));
+      sessionStorage.setItem("detail", JSON.stringify(storeDetail));
     })
     .catch(function (error) {
       console.error(error);
     });
   return storeDetail;
-  
 };
 export default DetailAPI;

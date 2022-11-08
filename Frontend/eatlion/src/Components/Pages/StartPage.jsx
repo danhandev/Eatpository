@@ -62,7 +62,7 @@ function StartPage() {
   };
   //   await axios
   //     .get(
-  //       "http://localhost:8000/stores/selected/",
+  //       "http://15.165.226.61/stores/selected/",
   //       {
   //         params: { editor: resultnum, category: parseInt(categorynum) },
   //       },
