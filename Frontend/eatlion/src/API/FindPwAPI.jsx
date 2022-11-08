@@ -4,7 +4,7 @@ const FindPwAPI = async (userid, userphone, NewPw) => {
   let findpw = "";
   await axios
     .get(
-      "http://15.165.226.61/users/password/",
+      "http://15.165.226.61:3000/users/password/",
       {
         params: {
           user_id: userid,

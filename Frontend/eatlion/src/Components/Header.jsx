@@ -46,7 +46,7 @@ const Header = ({ token, setToken }) => {
   if (1) {
     axios({
       method: "post",
-      url: "http://15.165.226.61/users/logincheck/",
+      url: "http://15.165.226.61:3000/users/logincheck/",
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
@@ -66,7 +66,7 @@ const Header = ({ token, setToken }) => {
         console.log(`refresh_token : ${refresh_token}`);
         axios({
           method: "post",
-          url: "http://15.165.226.61/users/loginValidate/",
+          url: "http://15.165.226.61:3000/users/loginValidate/",
           headers: {
             Authorization: `Bearer ${refresh_token}`,
           },

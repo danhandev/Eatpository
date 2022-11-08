@@ -7,7 +7,7 @@ const SignUpAPI = async (userid, password, userphone) => {
 
   await axios
     .post(
-      "http://15.165.226.61/users/signup/",
+      "http://15.165.226.61:3000/users/signup/",
       {
         user_id: userid,
         password: password,
