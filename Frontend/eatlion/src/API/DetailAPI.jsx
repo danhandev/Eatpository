@@ -8,7 +8,7 @@ const DetailAPI = async (id) => {
   let storeDetail = null;
   await axios
     .get(
-      "http://15.165.226.61:3000/stores/store-info",
+      "http://www.eatpository.site/stores/store-info",
 
       {
         params: { store_id: id },
